@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_26_183731) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_26_190203) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_183731) do
     t.index ["ingredient_category_id"], name: "index_ingredients_on_ingredient_category_id"
   end
 
+  create_table "mealplans", force: :cascade do |t|
+    t.datetime "plan_date"
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_mealplans_on_recipe_id"
+  end
+
   create_table "recipe_tags", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "tag_id", null: false
@@ -82,6 +90,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_183731) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.string "description"
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_steps_on_recipe_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -108,6 +124,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_183731) do
   add_foreign_key "ingredient_recipes", "ingredients"
   add_foreign_key "ingredient_recipes", "recipes"
   add_foreign_key "ingredients", "ingredient_categories"
+  add_foreign_key "mealplans", "recipes"
   add_foreign_key "recipe_tags", "recipes"
   add_foreign_key "recipe_tags", "tags"
+  add_foreign_key "steps", "recipes"
 end
