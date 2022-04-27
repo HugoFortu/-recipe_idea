@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
     has_many :blacklisted_ingredients, dependent: :destroy
     has_many :ingredients, through: :blacklisted_ingredients
+    has_many :user_recipes, dependent: :destroy
+    has_many :recipes, through: :user_recipes
 end

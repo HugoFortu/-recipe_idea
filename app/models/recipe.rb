@@ -5,4 +5,6 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :ingredient_recipes
   has_many :steps, dependent: :destroy
   has_many :mealplan, dependent: :destroy
+  has_many :user_recipes, dependent: :destroy
+  has_many :users, through: :user_recipes
 end
