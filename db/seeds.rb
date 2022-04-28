@@ -1,9 +1,10 @@
 require 'faker'
 
 puts "data destroyed"
-Shop.destroy_all
-IngredientCategory.destroy_all
 Ingredient.destroy_all
+IngredientCategory.destroy_all
+Shop.destroy_all
+Tag.destroy_all
 
 puts "creating shops"
 shop1 = Shop.create(name: "Biocoop", address: "68 rue Waldeck Rousseau, Lyon")
@@ -21,5 +22,11 @@ category5 = IngredientCategory.create(name: "divers", shop: shop4, image: "caddi
 puts "create ingredients"
 30.times do
   Ingredient.create(name: Faker::Food.ingredient, ingredient_category: [category1, category2, category3, category4, category5].sample)
+end
+
+puts "create tags"
+tags = %w(Végé Vegan Entrées Plats Desserts Apéritifs Boissons Salades Soupes)
+tags.each do |tag|
+  Tag.create(name: tag)
 end
 
