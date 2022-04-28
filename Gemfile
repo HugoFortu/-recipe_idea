@@ -20,7 +20,9 @@ gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
-
+gem "autoprefixer-rails", "10.2.5"
+gem "font-awesome-sass", "~> 5.15"
+gem "simple_form", github: "heartcombo/simple_form"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 gem "faker"

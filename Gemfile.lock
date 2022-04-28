@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/heartcombo/simple_form.git
+  revision: 23205201a935c7e52c39549756e2ec2e2ec47793
+  specs:
+    simple_form (5.1.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -68,6 +76,8 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    autoprefixer-rails (10.2.5.0)
+      execjs (< 2.8.0)
     awesome_print (1.9.2)
     bcrypt (3.1.17)
     bindex (0.8.1)
@@ -101,8 +111,12 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    execjs (2.7.0)
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
+    ffi (1.15.5)
+    font-awesome-sass (5.15.1)
+      sassc (>= 1.11)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -188,6 +202,8 @@ GEM
       railties (>= 5.0)
     rexml (3.2.5)
     rubyzip (2.3.2)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     selenium-webdriver (4.1.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -231,6 +247,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  autoprefixer-rails (= 10.2.5)
   awesome_print
   bootsnap
   capybara
@@ -238,12 +255,14 @@ DEPENDENCIES
   devise
   dotenv-rails
   faker
+  font-awesome-sass (~> 5.15)
   importmap-rails
   jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
   selenium-webdriver
+  simple_form!
   sprockets-rails
   stimulus-rails
   turbo-rails
