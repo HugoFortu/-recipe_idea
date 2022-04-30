@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
   before_action :find_recipe, only: [:show, :edit, :update]
 
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.includes(:steps, :tags)
   end
 
   def my_recipes
@@ -11,20 +11,6 @@ class RecipesController < ApplicationController
   end
 
   def show
-  end
-
-  def new
-    @recipe = Recipe.new
-  end
-
-  def create
-    @recipe = Recipe.new(recipe_params)
-    UserRecipe.create(recipe: @recipe, user: current_user)
-    if @recipe.save
-      redirect_to my_recipes_recipes_path
-    else
-      render :new
-    end
   end
 
   def edit
