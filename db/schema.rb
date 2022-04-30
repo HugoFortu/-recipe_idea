@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_30_164401) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_30_175146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,7 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_30_164401) do
     t.string "name"
     t.text "description"
     t.integer "portion"
-    t.integer "stars"
+    t.float "stars"
     t.string "preptime"
     t.boolean "cooked", default: false
     t.string "url"

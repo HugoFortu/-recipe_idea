@@ -3,11 +3,11 @@ class RecipesController < ApplicationController
   before_action :find_recipe, only: [:show, :edit, :update]
 
   def index
-    @recipes = Recipe.includes(:steps, :tags)
+    @recipes = Recipe.recorded.includes(:steps, :tags)
   end
 
   def my_recipes
-    @recipes = Recipe.where(user: current_user)
+    @recipes = Recipe.recorded.where(user: current_user)
   end
 
   def show

@@ -9,5 +9,7 @@ class Recipe < ApplicationRecord
   has_many :users, through: :user_recipes
 
   validates :name, presence: true
-  validates :portion, presence: true
+
+  scope :recorded, -> { where.not(preptime: nil) }
 end
+
