@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_27_072713) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_30_164401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_072713) do
     t.boolean "favoris", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url"
   end
 
   create_table "shops", force: :cascade do |t|
@@ -95,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_072713) do
     t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order"
     t.index ["recipe_id"], name: "index_steps_on_recipe_id"
   end
 
