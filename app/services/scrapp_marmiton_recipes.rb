@@ -40,13 +40,13 @@ class ScrappMarmitonRecipes
     doc = Nokogiri::HTML(html, nil, "utf-8")
     name = doc.search(".itJBWW").text.strip
     stars = doc.search(".jHwZwD").text.strip
-    image = doc.search(".kNPyTk img").attribute("src").value.strip
+    image = doc.search(".vKBPb").first.attribute("src").value.strip
     tag = add_tag(doc)
     preptime = doc.search(".iDYkZP").first.text.strip
     portion = doc.search(".hYSrSW").text.strip.to_i
     steps = add_steps(doc)
     ingredients = add_ingredients(doc)
-    Recipe.create(name: name, url: @url, stars: stars, image: image, preptime: preptime, portion: portion)
+    Recipe.create(name: name, url: @url, stars: stars, image_url: image, preptime: preptime, portion: portion)
   end
 
   private
