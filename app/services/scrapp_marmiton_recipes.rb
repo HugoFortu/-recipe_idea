@@ -5,6 +5,7 @@ class ScrappMarmitonRecipes
   def initialize(attributes = {})
     @ingredient = attributes[:ingredient]
     @recipe_id = attributes[:id]
+    @url = attributes[:url]
     @base_url = "https://www.marmiton.org"
   end
 
@@ -26,13 +27,49 @@ class ScrappMarmitonRecipes
     @recipe = Recipe.find(@recipe_id)
     html = URI.open(@recipe.url).read
     doc = Nokogiri::HTML(html, nil, "utf-8")
-    doc.search
-    tag =
-    preptime =
-    ingredients =
-    steps =
-    portion =
-    @recipe.update()
+    tag = add_tag(doc)
+    preptime = doc.search(".iDYkZP").first.text.strip
+    portion = doc.search(".hYSrSW").text.strip.to_i
+    steps = add_steps(doc)
+    ingredients = add_ingredients(doc)
+    @recipe.update(preptime: preptime, portion: portion)
+  end
 
+  private
+
+  def add_tag(doc)
+    tag = doc.search(".SHRD__sc-10plygc-0")[2].text.strip
+    unless Tag.find_by(name: tag).nil?
+      RecipeTag.create!(recipe: @recipe, tag: Tag.find_by(name: tag))
+    end
+  end
+
+  def add_steps(doc)
+    counter = 1
+    doc.search(".jFIVDw").each do |step|
+      description = step.text.strip.gsub(/(\r?\n|\r)/, " ")
+      Step.create(description: description, order: counter, recipe: @recipe)
+      counter += 1
+    end
+  end
+
+  def add_ingredients(doc)
+    doc.search(".MuiGrid-item").each do |element|
+      name = element.search(".itCXhd").text.strip.capitalize
+      name = element.search(".cDbUWZ").text.strip.capitalize if name == ""
+      dose = element.search(".epviYI").text.strip
+      ingredient = find_ingredient(name, doc)
+      IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
+    end
+  end
+
+  def find_ingredient(name, doc)
+    ingredient = Ingredient.find_by(name: name)
+    if ingredient.nil?
+      image = doc.search("img").attribute("src").value.strip
+      category = IngredientCategory.find_by(name: "à renseigner")
+      ingredient = Ingredient.create(name: name, ingredient_category: category, image: image)
+    end
+    ingredient
   end
 end

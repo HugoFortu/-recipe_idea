@@ -18,6 +18,7 @@ category2 = IngredientCategory.create(name: "Viandes", shop: shop3, image: "meat
 category3 = IngredientCategory.create(name: "Vrac", shop: shop1, image: "vrac.jpg")
 category4 = IngredientCategory.create(name: "conserves", shop: shop1, image: "canned.jpg")
 category5 = IngredientCategory.create(name: "divers", shop: shop4, image: "caddie.jpg")
+category6 = IngredientCategory.create(name: "à renseigner", shop: shop4, image: "caddie.jpg")
 
 puts "create ingredients"
 30.times do
