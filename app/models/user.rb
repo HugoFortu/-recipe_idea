@@ -8,6 +8,7 @@ class User < ApplicationRecord
     has_many :ingredients, through: :blacklisted_ingredients
     has_many :user_recipes, dependent: :destroy
     has_many :recipes, through: :user_recipes
+    has_many :lists, dependent: :destroy
 
 validates :name, presence: true, uniqueness: true
 end
