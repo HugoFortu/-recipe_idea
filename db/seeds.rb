@@ -26,7 +26,7 @@ puts "create ingredients"
 end
 
 puts "create tags"
-tags = %w(Végé Vegan Entrées Plats Desserts Apéritifs Boissons Salades Soupes)
+tags = %w(Végé Vegan Entrée Plat Dessert Apéritif Boisson Salade Soupe)
 tags.each do |tag|
   Tag.create(name: tag)
 end

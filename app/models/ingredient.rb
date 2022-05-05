@@ -6,4 +6,6 @@ class Ingredient < ApplicationRecord
   has_many :users, through: :blacklisted_ingredients
 
   validates :name, presence: true, uniqueness: true
+
+  scope :without_cat, -> { where(ingredient_category_id: (IngredientCategory.find_by(name: "à renseigner")).id) }
 end
