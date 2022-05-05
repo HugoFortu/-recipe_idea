@@ -1,0 +1,18 @@
+<h1>My recipes</h1>
+
+<div class="container">
+  <% @recipes.each do |recipe|  %>
+    <%= recipe.recipe.name %>
+    <% recipe.recipe.tags.each do |tag|%>
+      <ul>
+        <li><%= tag.name %></li>
+      </ul>
+    <% end %>
+    <h4>Etapes des recettes</h4>
+    <% recipe.recipe.steps.each do |step|%>
+      <ol>
+        <li><%= "#{step.order}- #{step.description}" %></li>
+      </ol>
+    <% end %>
+  <% end %>
+</div>

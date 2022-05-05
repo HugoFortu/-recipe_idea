@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_02_104600) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_05_174801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_104600) do
     t.index ["ingredient_category_id"], name: "index_ingredients_on_ingredient_category_id"
   end
 
+  create_table "list_ingredients", force: :cascade do |t|
+    t.string "quantity"
+    t.boolean "checked"
+    t.bigint "list_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_list_ingredients_on_ingredient_id"
+    t.index ["list_id"], name: "index_list_ingredients_on_list_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_lists_on_user_id"
+  end
+
   create_table "mealplans", force: :cascade do |t|
     t.datetime "plan_date"
     t.bigint "recipe_id", null: false
@@ -74,9 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_104600) do
     t.integer "portion"
     t.float "stars"
     t.string "preptime"
-    t.boolean "cooked", default: false
     t.string "url"
-    t.boolean "favoris", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_url"
@@ -111,6 +128,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_104600) do
     t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "cooked", default: false
+    t.boolean "favoris", default: false
     t.index ["recipe_id"], name: "index_user_recipes_on_recipe_id"
     t.index ["user_id"], name: "index_user_recipes_on_user_id"
   end
@@ -135,6 +154,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_104600) do
   add_foreign_key "ingredient_recipes", "ingredients"
   add_foreign_key "ingredient_recipes", "recipes"
   add_foreign_key "ingredients", "ingredient_categories"
+  add_foreign_key "list_ingredients", "ingredients"
+  add_foreign_key "list_ingredients", "lists"
+  add_foreign_key "lists", "users"
   add_foreign_key "mealplans", "recipes"
   add_foreign_key "recipe_tags", "recipes"
   add_foreign_key "recipe_tags", "tags"

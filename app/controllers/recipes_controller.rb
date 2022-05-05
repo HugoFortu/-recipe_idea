@@ -6,10 +6,6 @@ class RecipesController < ApplicationController
     @recipes = Recipe.recorded.includes(:steps, :tags)
   end
 
-  def my_recipes
-    @recipes = Recipe.recorded.where(user: current_user)
-  end
-
   def show
   end
 

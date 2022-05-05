@@ -35,6 +35,7 @@ class ScrappMarmitonRecipes
     steps = add_steps(doc)
     ingredients = add_ingredients(doc)
     @recipe.update(preptime: preptime, portion: portion)
+    UserRecipe.create(user: current_user, recipe: @recipe)
   end
 
     def call_with_url
@@ -48,7 +49,8 @@ class ScrappMarmitonRecipes
     steps = add_steps(doc)
     ingredients = add_ingredients(doc)
     tag = add_tag(doc)
-    Recipe.create(name: name, url: @url, stars: stars, image_url: image, preptime: preptime, portion: portion)
+    recipe = Recipe.create(name: name, url: @url, stars: stars, image_url: image, preptime: preptime, portion: portion)
+    UserRecipe.create(user: current_user, recipe: recipe)
   end
 
   private
