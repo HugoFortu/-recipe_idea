@@ -20,11 +20,6 @@ category4 = IngredientCategory.create(name: "conserves", shop: shop1, image: "ca
 category5 = IngredientCategory.create(name: "divers", shop: shop4, image: "caddie.jpg")
 category6 = IngredientCategory.create(name: "à renseigner", shop: shop4, image: "caddie.jpg")
 
-puts "create ingredients"
-30.times do
-  Ingredient.create(name: Faker::Food.ingredient, ingredient_category: [category1, category2, category3, category4, category5].sample)
-end
-
 puts "create tags"
 tags = %w(Végé Vegan Entrée Plat Dessert Apéritif Boisson Salade Soupe)
 tags.each do |tag|
