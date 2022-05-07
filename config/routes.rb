@@ -4,8 +4,7 @@ Rails.application.routes.draw do
       }
   root to: "recipes#index"
   resources :recipes, except: :index
-  resources :users, only: :show do
-    resources :user_recipes, only: :index
-  end
-  resources :user_recipes, only: :show
+  # resources :users, only: :show
+  resources :user_recipes, only: [:show, :index]
+  resources :ingredient_categories, only: [:index]
 end

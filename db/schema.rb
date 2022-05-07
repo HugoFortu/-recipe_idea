@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_05_174801) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,7 +29,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_174801) do
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["shop_id"], name: "index_ingredient_categories_on_shop_id"
+    t.index ["user_id"], name: "index_ingredient_categories_on_user_id"
   end
 
   create_table "ingredient_recipes", force: :cascade do |t|
@@ -53,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_174801) do
 
   create_table "list_ingredients", force: :cascade do |t|
     t.string "quantity"
-    t.boolean "checked"
+    t.boolean "checked", default: false
     t.bigint "list_id", null: false
     t.bigint "ingredient_id", null: false
     t.datetime "created_at", null: false
@@ -106,6 +108,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_174801) do
     t.float "lat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_shops_on_user_id"
   end
 
   create_table "steps", force: :cascade do |t|
@@ -151,6 +155,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_174801) do
   add_foreign_key "blacklisted_ingredients", "ingredients"
   add_foreign_key "blacklisted_ingredients", "users"
   add_foreign_key "ingredient_categories", "shops"
+  add_foreign_key "ingredient_categories", "users"
   add_foreign_key "ingredient_recipes", "ingredients"
   add_foreign_key "ingredient_recipes", "recipes"
   add_foreign_key "ingredients", "ingredient_categories"
@@ -160,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_174801) do
   add_foreign_key "mealplans", "recipes"
   add_foreign_key "recipe_tags", "recipes"
   add_foreign_key "recipe_tags", "tags"
+  add_foreign_key "shops", "users"
   add_foreign_key "steps", "recipes"
   add_foreign_key "user_recipes", "recipes"
   add_foreign_key "user_recipes", "users"

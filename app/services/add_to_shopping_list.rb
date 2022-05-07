@@ -11,7 +11,6 @@ class AddToShoppingList
       new_ingredient_dose = adapt_dose(ingredient_recipe, portion_ratio)
       add_to_list(name, new_ingredient_dose)
     end
-
   end
 
   def add_to_list(name, dose)

@@ -1,0 +1,5 @@
+<% @categories.each do |category|%>
+<div style="background-image: url('<%= image_path category.image %>')">
+  <%= category.name %>
+</div>
+<% end %>

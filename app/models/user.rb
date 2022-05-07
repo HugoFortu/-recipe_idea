@@ -9,6 +9,8 @@ class User < ApplicationRecord
     has_many :user_recipes, dependent: :destroy
     has_many :recipes, through: :user_recipes
     has_many :lists, dependent: :destroy
+    has_many :ingredient_categories, dependent: :destroy
+    has_many :shops, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 end
