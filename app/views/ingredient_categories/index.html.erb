@@ -1,5 +1,7 @@
-<% @categories.each do |category|%>
-<div style="background-image: url('<%= image_path category.image %>')">
-  <%= category.name %>
+<div class="d-flex">
+  <% @categories.each do |category|%>
+  <div class="category-container m-auto my-4" style="background-image: url('<%= image_path category.image %>')">
+    <%= category.name %>
+  </div>
+  <% end %>
 </div>
-<% end %>
