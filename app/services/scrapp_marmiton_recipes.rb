@@ -1,7 +1,8 @@
 require "open-uri"
 require "nokogiri"
 
-MEAT_ADN_FISH = %w(Agneau Porc Abats Poulet Boeuf Veau Mouton Canard Anchois Andouille Andouillette Anguille Bacon Baudroie Beef Steak Bifteck Bigorneau Dinde Boudin Viande Bresaola Bulot Cabillaud Caille Calamar Crabe Cassoulet Cervelas Saucisse Charcuteries Chapon Chipolata Chorizo Daurade Jambon Diot Dorade Faisan Faux-filet filet foie poisson Crevette Gambas Coppa Crevettes Lapin Gésiers Haddock Hareng Homard Huître Jambonneau lotte Cochon Langouste Langoustine Lard Lardons Lieu Limande Maquereau Sardine Merlu Merlan Mérou Moelle Mortadelle Morue Moules Pétoncle saint-jacques paleron palourde oie pancetta Panga Pastrami pâté paupiette saumon thon pintade poitrine poule poulpe praire écrevisse raie rillettes rosbif rosette rognons rouget rumsteak rumsteck saint-pierre salami saucisson scampi seiche sole surimi tourteau tripes truite turbot volaille)
+MEAT_AND_FISH = %w(Agneau Porc Abats Poulet Boeuf Veau Mouton Canard Anchois Andouille Andouillette Anguille Bacon Baudroie Beef Steak Bifteck Bigorneau Dinde Boudin Viande Bresaola Bulot Cabillaud Caille Calamar Crabe Cassoulet Cervelas Saucisse Charcuteries Chapon Chipolata Chorizo Daurade Jambon Diot Dorade Faisan Faux-filet filet foie poisson Crevette Gambas Coppa Crevettes Lapin Gésiers Haddock Hareng Homard Huître Jambonneau lotte Cochon Langouste Langoustine Lard Lardons Lieu Limande Maquereau Sardine Merlu Merlan Mérou Moelle Mortadelle Morue Moules Pétoncle saint-jacques paleron palourde oie pancetta Panga Pastrami pâté paupiette saumon thon pintade poitrine poule poulpe praire écrevisse raie rillettes rosbif rosette rognons rouget rumsteak rumsteck saint-pierre salami saucisson scampi seiche sole surimi tourteau tripes truite turbot volaille)
+MEATS_AND_FISHES = MEAT_AND_FISH.map { |element| element.pluralize }
 
 class ScrappMarmitonRecipes
   def initialize(attributes = {})
@@ -78,7 +79,7 @@ class ScrappMarmitonRecipes
       name = element.search(".cDbUWZ").text.strip.capitalize if name == ""
       dose = element.search(".epviYI").text.strip
       ingredient = find_ingredient(name, doc)
-      tags << "végé" if MEAT_ADN_FISH.count {|element| element.match(/#{ingredient.name}/i)} == 0
+      tags << "végé" if (count_elements(MEAT_AND_FISH) == 0) || (count_elements(MEATS_AND_FISHES) == 0)
       IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
     end
     RecipeTag.create(recipe: @recipe, tag: Tag.find_by(name: "Végé")) if tags.include?("végé")
@@ -92,5 +93,9 @@ class ScrappMarmitonRecipes
       ingredient = Ingredient.create(name: name, ingredient_category: category, image: image)
     end
     ingredient
+  end
+
+  def count_elements(constant)
+    constant.count {|element| element.match(/#{ingredient.name}/i)}
   end
 end

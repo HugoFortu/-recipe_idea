@@ -11,5 +11,6 @@ class AddDefaultsIngredientCategories
     IngredientCategory.create(name: "Vrac", shop: shop, image: "flour.png", user_id: @user)
     IngredientCategory.create(name: "conserves", shop: shop, image: "canned-food.png", user_id: @user)
     IngredientCategory.create(name: "divers", shop: shop, image: "grocery-cart.png", user_id: @user)
+    IngredientCategory.create(name: "à renseigner", shop: shop, image: "grocery-cart.png", user_id: @user)
   end
 end
