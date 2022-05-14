@@ -11,5 +11,6 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
 
   scope :recorded, -> { where.not(preptime: nil) }
+  scope :not_recorded, -> { where(preptime: nil) }
 end
 

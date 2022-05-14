@@ -1,2 +1,25 @@
-<p>Coucou</p>
-
+<div class="container">
+  <h3>Chercher une nouvelle recette?</h3>
+  <form action="/recipes" method="get">
+    <input type="text" name="ingredient" placeholder="Par quel plat/ingredient voulez-vous rechercher?">
+    <input type="submit">
+  </form>
+  <% unless @new_recipes.nil? %>
+    <% @new_recipes.each do |recipe| %>
+      <ul>
+        <li>
+          <%= recipe.name %>
+          <%= recipe.stars %>
+          <%= link_to "Ajouter à mes recettes", user_recipe_path(recipe) %>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
+<div class="container">
+  <h3>Chercher parmi nos recettes?</h3>
+  <% @recipes.each do |recipe| %>
+    <%= link_to recipe.name, recipe_path(recipe) %>
+    <%= link_to "Ajouter à mes recettes", user_recipe_path(recipe)%>
+  <% end %>
+</div>

@@ -1,13 +1,13 @@
 class AddToShoppingList
   def initialize(attributes = {})
     @list = attributes[:list]
-    @recipe = attributes[:recipe]
+    @user_recipe = attributes[:user_recipe]
     @user_portion = attributes[:portion]
   end
 
   def call
-    portion_ratio = @user_portion / @recipe.portion.to_f
-    @recipe.ingredient_recipes.each do |ingredient_recipe|
+    portion_ratio = @user_portion / @user_recipe.recipe.portion.to_f
+    @user_recipe.recipe.ingredient_recipes.each do |ingredient_recipe|
       new_ingredient_dose = adapt_dose(ingredient_recipe, portion_ratio)
       add_to_list(name, new_ingredient_dose)
     end

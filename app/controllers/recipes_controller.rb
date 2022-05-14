@@ -4,6 +4,10 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.recorded.includes(:tags)
+
+    if params[:ingredient]
+      @new_recipes = ScrappMarmitonRecipes.new(ingredient: params[:ingredient], user: current_user).search
+    end
   end
 
   def show

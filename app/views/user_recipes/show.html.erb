@@ -1,0 +1,5 @@
+<div class="recipe-banner" style="background-image: url('<%= image_path @user_recipe.recipe.image_url %>')"></div>
+<%= "#{@user_recipe.recipe.name} - #{@user_recipe.recipe.preptime}"%>
+
+<%# Le lien ci dessous devrait ouvrir une modale, d'un formulaire d'une requete post qui permettrait de lancer ensuite le service add_to_shopping_list uis redirect vers la show de list%>
+<%= link_to "Ajouter cette recette à ma liste", list_path(current_user.list) %>

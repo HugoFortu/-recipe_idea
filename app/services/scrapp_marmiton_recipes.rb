@@ -10,6 +10,7 @@ class ScrappMarmitonRecipes
     @recipe_id = attributes[:id]
     @url = attributes[:url]
     @base_url = "https://www.marmiton.org"
+    @current_user = attributes[:user]
   end
 
   def search
@@ -36,7 +37,8 @@ class ScrappMarmitonRecipes
     steps = add_steps(doc)
     ingredients = add_ingredients(doc)
     @recipe.update(preptime: preptime, portion: portion)
-    UserRecipe.create(user: current_user, recipe: @recipe)
+    Recipe.not_recorded.destroy_all
+    UserRecipe.create(user: @current_user, recipe: @recipe)
   end
 
     def call_with_url
@@ -51,7 +53,7 @@ class ScrappMarmitonRecipes
     ingredients = add_ingredients(doc)
     tag = add_tag(doc)
     recipe = Recipe.create(name: name, url: @url, stars: stars, image_url: image, preptime: preptime, portion: portion)
-    UserRecipe.create(user: current_user, recipe: recipe)
+    UserRecipe.create(user: @current_user, recipe: recipe)
   end
 
   private
@@ -79,7 +81,7 @@ class ScrappMarmitonRecipes
       name = element.search(".cDbUWZ").text.strip.capitalize if name == ""
       dose = element.search(".epviYI").text.strip
       ingredient = find_ingredient(name, doc)
-      tags << "végé" if (count_elements(MEAT_AND_FISH) == 0) || (count_elements(MEATS_AND_FISHES) == 0)
+      tags << "végé" if (count_elements(MEAT_AND_FISH, ingredient) == 0) || (count_elements(MEATS_AND_FISHES, ingredient) == 0)
       IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
     end
     RecipeTag.create(recipe: @recipe, tag: Tag.find_by(name: "Végé")) if tags.include?("végé")
@@ -95,7 +97,7 @@ class ScrappMarmitonRecipes
     ingredient
   end
 
-  def count_elements(constant)
+  def count_elements(constant, ingredient)
     constant.count {|element| element.match(/#{ingredient.name}/i)}
   end
 end
