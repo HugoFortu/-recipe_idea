@@ -1,0 +1,7 @@
+<h3><%= @list.name %></h3>
+<% @list_ingredients.each do |list_ingredient| %>
+  <% if list_ingredient.quantity != "0.0" %>
+
+  <p><%= "#{list_ingredient.ingredient.name} - #{ list_ingredient.quantity } " %></p>
+  <% end %>
+<% end %>

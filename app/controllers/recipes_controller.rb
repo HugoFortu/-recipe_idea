@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
   before_action :find_recipe, only: [:show, :edit, :update]
 
   def index
-    @recipes = Recipe.recorded.includes(:tags)
+    @recipes = Recipe.recorded
 
     if params[:ingredient]
       @new_recipes = ScrappMarmitonRecipes.new(ingredient: params[:ingredient], user: current_user).search

@@ -1,0 +1,10 @@
+<%= render "remote_modal", title: "Ajouter cette recette à ma liste" do %>
+
+  <%= simple_form_for(@list) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :address %>
+  <%= f.input :rating %>
+  <%= f.submit %>
+<% end %>
+
+<% end %>

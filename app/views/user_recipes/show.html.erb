@@ -2,4 +2,4 @@
 <%= "#{@user_recipe.recipe.name} - #{@user_recipe.recipe.preptime}"%>
 
 <%# Le lien ci dessous devrait ouvrir une modale, d'un formulaire d'une requete post qui permettrait de lancer ensuite le service add_to_shopping_list uis redirect vers la show de list%>
-<%= link_to "Ajouter cette recette à ma liste", list_path(current_user.list) %>
+<%= link_to "Ajouter cette recette à ma liste", add_to_list_user_recipe_path(@user_recipe), class: "btn btn-primary" %>

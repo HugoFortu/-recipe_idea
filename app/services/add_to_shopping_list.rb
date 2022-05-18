@@ -9,12 +9,13 @@ class AddToShoppingList
     portion_ratio = @user_portion / @user_recipe.recipe.portion.to_f
     @user_recipe.recipe.ingredient_recipes.each do |ingredient_recipe|
       new_ingredient_dose = adapt_dose(ingredient_recipe, portion_ratio)
-      add_to_list(name, new_ingredient_dose)
+      ingredient_name = ingredient_recipe.ingredient.name
+      add_to_list(ingredient_name, new_ingredient_dose)
     end
   end
 
-  def add_to_list(name, dose)
-    ingredient = Ingredient.find_by(name: name)
+  def add_to_list(ingredient_name, dose)
+    ingredient = Ingredient.find_by(name: ingredient_name)
     list_ingredient = ListIngredient.find_or_create_by(ingredient: ingredient, list: @list)
     if list_ingredient.quantity.nil? || list_ingredient.checked == true
       quantity = dose.split(" ").join(" ")
