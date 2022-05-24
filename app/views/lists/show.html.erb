@@ -1,7 +1,18 @@
-<h3><%= @list.name %></h3>
-<% @list_ingredients.each do |list_ingredient| %>
-  <% if list_ingredient.quantity != "0.0" %>
-
-  <p><%= "#{list_ingredient.ingredient.name} - #{ list_ingredient.quantity } " %></p>
-  <% end %>
-<% end %>
+<div class=" pb-6 mx-auto">
+  <h1 class="text-xl font-medium text-center"><%= @list.name %></h1>
+</div>
+<div class="flex bg-white rounded-xl container-list mx-40">
+  <div class="mx-auto py-6 slider">
+    <% elements_sorted = @list_ingredients.sort_by  { |element| element.checked ? 1 : 0 }%>
+    <% elements_sorted.each do |element| %>
+      <% if element.quantity != "0.0" %>
+        <div id= "checklist"  data-controller="list" data-list-update-url="<%= list_list_ingredient_path(@list, element) %>">
+          <input id="<%= element.id %>" type="checkbox" class="check" data-action="list#updateElement"
+          data-list-target="checked"
+          <% if element.checked %> checked <% end %> >
+          <label id="<%= element.id%>" for="<%= element.id%>" ><%= element.quantity %>        <%= element.ingredient.name %></label>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

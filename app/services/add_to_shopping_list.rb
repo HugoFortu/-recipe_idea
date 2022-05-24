@@ -37,6 +37,8 @@ class AddToShoppingList
     dose_splitted = dose.split(" ")
     if dose_splitted[1] == "g"
       new_dose = (dose_splitted.first.to_f * portion_ratio).round.to_s
+    elsif dose_splitted[1] == "cl"
+      new_dose = (dose_splitted.first.to_f * portion_ratio).round.to_s
     else
       new_dose = (dose_splitted.first.to_f * portion_ratio).round(1).to_s
     end

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
       get :add_to_list
     end
   end
-  resources :ingredient_categories, only: [:index]
-  resources :lists,  only: [:show]
+  resources :user, only: :show do
+    resources :ingredient_categories, only: [:index]
+  end
+  resources :lists,  only: [:show] do
+    resources :list_ingredients, only: :update
+  end
 end
