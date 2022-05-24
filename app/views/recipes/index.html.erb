@@ -7,18 +7,7 @@
   <% unless @new_recipes.nil? %>
     <div class="container ">
       <% @new_recipes.each do |recipe| %>
-        <div class="card m-4" style="width: 14rem;">
-          <%= image_tag recipe.image_url, class: "card-img-top" %>
-          <div class="card-body">
-            <h5 class="card-title"><%= recipe.name %></h5>
-            <p class="card-text"><%= recipe.stars %></p>
-            <% if !current_user.nil? %>
-              <%= button_to user_recipes_path(recipe_id: recipe.id), class: "btn" do %>
-                <%= image_tag 'plus.png', width: 40, height: 40 %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+        <%= render 'shared/recipe_list', recipe: recipe  %>
       <% end %>
     </div>
   <% end %>
@@ -27,20 +16,7 @@
   <h3>Chercher parmi nos recettes?</h3>
   <div class="container d-flex">
     <% @recipes.each do |recipe| %>
-    <div class="card m-4" style="width: 18rem;">
-      <%= image_tag recipe.image_url, class: "card-img-top" %>
-      <div class="card-body">
-        <h5 class="card-title"><%= recipe.name %></h5>
-        <p class="card-text"><%= recipe.preptime %></p>
-
-        <% if !current_user.nil? %>
-          <%= button_to user_recipes_path(recipe_id: recipe.id), class: "btn" do %>
-            <%= image_tag 'plus.png', width: 40, height: 40 %>
-          <% end %>
-        <% end %>
-        <%= link_to "Details", recipe_path(recipe), class: "btn btn-primary" %>
-      </div>
-    </div>
+      <%= render 'shared/recipe_card', recipe: recipe %>
     <% end %>
   </div>
 </div>

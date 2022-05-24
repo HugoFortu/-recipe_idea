@@ -5,12 +5,11 @@
 
   <div class="form-inputs">
     <div class="input pt-6 pb-2">
-        <%= f.input :name %>
+        <%= f.input :name, autofocus: true %>
     </div>
     <div class="input py-2">
     <%= f.input :email,
                 required: true,
-                autofocus: true,
                 input_html: { autocomplete: "email" }%>
   </div>
   <div class="input py-2">

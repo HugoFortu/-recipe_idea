@@ -12,9 +12,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do
-        resource.list = List.new
-        add_defaults_ingredient_categories(resource)
-        resource.save
+      resource.list = List.new(name: "liste de courses")
+      add_defaults_ingredient_categories(resource)
+      resource.save
     end
   end
 
@@ -56,7 +56,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
-  #   super(resource)
+  #
   # end
 
   # The path used after sign up for inactive accounts.
