@@ -1,8 +1,8 @@
 <div class=" pb-6 mx-auto">
-  <h1 class="text-xl font-medium text-center"><%= @list.name %></h1>
+  <h1 class="text-xl font-medium text-center my-2"><%= @list.name %></h1>
 </div>
-<div class="flex bg-white rounded-xl container-list mx-40">
-  <div class="mx-auto py-6 slider">
+<div class="bg-white rounded-xl container-list mx-2 rounded">
+  <div class="mx-2 p-3 slider">
     <% elements_sorted = @list_ingredients.sort_by  { |element| element.checked ? 1 : 0 }%>
     <% elements_sorted.each do |element| %>
       <% if element.quantity != "0.0" %>

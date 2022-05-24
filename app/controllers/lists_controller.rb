@@ -7,7 +7,7 @@ class ListsController < ApplicationController
       AddToShoppingList.new(list: @list, user_recipe: user_recipe, portion: params[:portion].to_i).call
       @list
     end
-    @list_ingredients = ListIngredient.where(list: @list)
+    @list_ingredients = ListIngredient.where(list: @list).includes([:ingredient])
   end
 
   private
