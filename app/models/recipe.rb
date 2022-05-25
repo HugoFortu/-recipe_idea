@@ -12,5 +12,7 @@ class Recipe < ApplicationRecord
 
   scope :recorded, -> { where.not(preptime: nil) }
   scope :not_recorded, -> { where(preptime: nil) }
+
+  AUTHORIZED_RATINGS = (1..5)
 end
 

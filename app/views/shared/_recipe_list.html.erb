@@ -4,7 +4,12 @@
     <div class="d-flex justify-content-between align-items-center">
       <div>
         <h6 class="card-title px-2"><%= recipe.name %></h6>
-        <p class="card-text px-2" ><%= recipe.stars %></p>
+        <div class="d-flex px-2">
+          <% Recipe::AUTHORIZED_RATINGS.each do |number| %>
+            <i class="fa<%= (number > recipe.stars.round) ? 'r' : 's' %> fa-star"></i>
+          <% end %>
+          <p class="card-text px-2" ><%= recipe.stars %></p>
+        </div>
       </div>
       <% if !current_user.nil? %>
         <%= button_to user_recipes_path(recipe_id: recipe.id), class: "btn px-2 align-items-center" do %>

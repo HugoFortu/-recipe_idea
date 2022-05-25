@@ -14,7 +14,7 @@ class ScrappMarmitonRecipes
   end
 
   def search
-    html = URI.open("#{@base_url}/recettes/recherche.aspx?aqt=#{@ingredient}").read
+    html = URI("#{@base_url}/recettes/recherche.aspx?aqt=#{@ingredient}").read
     doc = Nokogiri::HTML(html, nil, "utf-8")
     results = []
     doc.search(".gACiYG").first(10).each do |element|
@@ -29,7 +29,7 @@ class ScrappMarmitonRecipes
 
   def call
     @recipe = Recipe.find(@recipe_id)
-    html = URI.open(@recipe.url).read
+    html = URI(@recipe.url).read
     doc = Nokogiri::HTML(html, nil, "utf-8")
     tag = add_tag(doc)
     preptime = doc.search(".iDYkZP").first.text.strip
@@ -42,7 +42,7 @@ class ScrappMarmitonRecipes
   end
 
     def call_with_url
-    html = URI.open(@url).read
+    html = URI(@url).read
     doc = Nokogiri::HTML(html, nil, "utf-8")
     name = doc.search(".itJBWW").text.strip
     stars = doc.search(".jHwZwD").text.strip
