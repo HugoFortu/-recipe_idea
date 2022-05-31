@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :user, only: :show do
     resources :ingredient_categories, only: [:index]
   end
-  resources :lists,  only: [:show] do
+  resources :lists,  only: [:show, :destroy] do
     resources :list_ingredients, only: :update
   end
 end

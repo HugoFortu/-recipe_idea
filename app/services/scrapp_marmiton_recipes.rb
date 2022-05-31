@@ -88,11 +88,12 @@ class ScrappMarmitonRecipes
   end
 
   def find_ingredient(name, doc)
-    ingredient = Ingredient.find_by(name: name)
+    pluralized_name = name.pluralize
+    ingredient = Ingredient.find_by(name: pluralized_name)
     if ingredient.nil?
       image = doc.search("img").attribute("src").value.strip
       category = IngredientCategory.find_by(name: "à renseigner")
-      ingredient = Ingredient.create(name: name, ingredient_category: category, image: image)
+      ingredient = Ingredient.create(name: pluralized_name, ingredient_category: category, image: image)
     end
     ingredient
   end

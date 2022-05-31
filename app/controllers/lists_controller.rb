@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_params, only: [:show]
+  before_action :set_params, only: [:show, :destroy]
 
   def show
     if params[:portion]
@@ -8,6 +8,13 @@ class ListsController < ApplicationController
       @list
     end
     @list_ingredients = ListIngredient.where(list: @list).includes([:ingredient])
+  end
+
+  def destroy
+    @list_ingredients = ListIngredient.where(list: @list)
+    @list_ingredients.where(checked: true).destroy_all
+
+    redirect_to list_path(@list)
   end
 
   private
