@@ -1,0 +1,30 @@
+
+.tags {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  line-height: 1.8rem;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+.input-tag+.tag {
+  background-color: #fff;
+  color: black;
+  padding: 0px 8px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+.input-tag:checked+.tag {
+  background-color: #4BAE4E;
+  color: #fff;
+  border: 1px solid #4BAE4E;
+}
+
+.tag:hover {
+  cursor: pointer;
+}

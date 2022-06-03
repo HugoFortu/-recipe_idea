@@ -19,7 +19,7 @@ class ScrappMarmitonRecipes
     results = []
     doc.search(".gACiYG").first(10).each do |element|
       name = element.search("h4").text.strip
-      image = element.search(".hiKnrc img").attribute("src").value.strip
+      image = element.search(".hiKnrc img").attribute("data-src").value.strip
       rating = element.search(".jHwZwD").text.strip
       url = @base_url + (element.attribute("href").value.strip)
       results << Recipe.create(name: name, image_url: image, stars: rating, url: url)
@@ -46,7 +46,7 @@ class ScrappMarmitonRecipes
     doc = Nokogiri::HTML(html, nil, "utf-8")
     name = doc.search(".itJBWW").text.strip
     stars = doc.search(".jHwZwD").text.strip
-    image = doc.search(".vKBPb").first.attribute("src").value.strip
+    image = doc.search(".vKBPb").first.attribute("data-src").value.strip
     preptime = doc.search(".iDYkZP").first.text.strip
     portion = doc.search(".hYSrSW").text.strip.to_i
     steps = add_steps(doc)
@@ -88,7 +88,7 @@ class ScrappMarmitonRecipes
   end
 
   def find_ingredient(name, doc)
-    pluralized_name = name.pluralize
+    pluralized_name = pluralize(name)
     ingredient = Ingredient.find_by(name: pluralized_name)
     if ingredient.nil?
       image = doc.search("img").attribute("src").value.strip
@@ -100,5 +100,9 @@ class ScrappMarmitonRecipes
 
   def count_elements(constant, ingredient)
     constant.count {|element| element.match(/#{ingredient.name}/i)}
+  end
+
+  def pluralize_name(name)
+    name.pluralize unless name.split('').last == 'x'
   end
 end

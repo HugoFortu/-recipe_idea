@@ -1,22 +1,33 @@
 <div class="container my-2">
-  <h3>Chercher une nouvelle recette?</h3>
-  <form action="/recipes" method="get">
-    <div class="form-group d-flex ">
-      <input type="text" name="ingredient" class="form-control" placeholder="Par quel plat/ingredient voulez-vous rechercher?">
-      <input type="submit" class="btn btn-primary btn-lg">
-    </div>
-  </form>
+  <h3>Chercher une nouvelle recette sur Marmiton?</h3>
+  <%= form_with url: "/", method: :get, class: "form-group d-flex" do |form| %>
+    <%= form.text_field :ingredient, class: "form-control", placeholder: "Par quel plat/ingredient voulez-vous rechercher?" %>
+    <%= button_tag( :class => "btn") do %>
+      <i class="fa-solid fa-magnifying-glass"></i>
+    <% end %>
+  <% end %>
   <% unless @new_recipes.nil? %>
     <div class="container">
       <% @new_recipes.each do |recipe| %>
-        <%= render 'shared/recipe_list', recipe: recipe  %>
+        <%= render 'shared/recipe_list_search', recipe: recipe  %>
       <% end %>
     </div>
   <% end %>
 </div>
 <div class="container">
   <h3>Chercher parmi nos recettes?</h3>
+    <div class="container d-flex tags">
+      <%= form_with(url: root_path, method: :get, data: {'controller': "recipes-filter"}) do |form| %>
+        <% @tags.each do |tag| %>
+          <% checked = (params[:tag] && params[:tag][:ids].include?(tag.id.to_s)) %>
+          <input class="input-tag" data-action="input->recipes-filter#change" type="checkbox" name="tag[ids][]" id="tag_<%= tag.id%>" value="<%= tag.id%>" <%= 'checked' if checked  %>>
+          <label class="tag" for="tag_<%= tag.id%>"><%= tag.name %></label>
+        <% end %>
+      <% end %>
+    </div>
   <% @recipes.shuffle.first(5).each do |recipe| %>
-    <%= render 'shared/recipe_list', recipe: recipe  %>
+    <%= link_to recipe_path(recipe), class:"link-text" do %>
+      <%= render 'shared/recipe_list', recipe: recipe  %>
+    <% end %>
   <% end %>
 </div>

@@ -4,9 +4,15 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.recorded
+    @tags =  Tag.joins(:recipe_tags).distinct
 
     if params[:ingredient]
+      Recipe.not_recorded.includes([:recipe_tags, :ingredient_recipes, :steps, :mealplan, :user_recipes]).destroy_all
       @new_recipes = ScrappMarmitonRecipes.new(ingredient: params[:ingredient], user: current_user).search
+    end
+
+    if params[:tag] && params[:tag][:ids].present?
+      @recipes = @recipes.joins(:tags).where(tags: { id: params[:tag][:ids] }).distinct
     end
   end
 
