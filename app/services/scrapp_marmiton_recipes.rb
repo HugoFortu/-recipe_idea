@@ -2,7 +2,7 @@ require "open-uri"
 require "nokogiri"
 
 MEAT_AND_FISH = %w(Agneau Porc Abats Poulet Boeuf Veau Mouton Canard Anchois Andouille Andouillette Anguille Bacon Baudroie Beef Steak Bifteck Bigorneau Dinde Boudin Viande Bresaola Bulot Cabillaud Caille Calamar Crabe Cassoulet Cervelas Saucisse Charcuteries Chapon Chipolata Chorizo Daurade Jambon Diot Dorade Faisan Faux-filet filet foie poisson Crevette Gambas Coppa Crevettes Lapin Gésiers Haddock Hareng Homard Huître Jambonneau lotte Cochon Langouste Langoustine Lard Lardons Lieu Limande Maquereau Sardine Merlu Merlan Mérou Moelle Mortadelle Morue Moules Pétoncle saint-jacques paleron palourde oie pancetta Panga Pastrami pâté paupiette saumon thon pintade poitrine poule poulpe praire écrevisse raie rillettes rosbif rosette rognons rouget rumsteak rumsteck saint-pierre salami saucisson scampi seiche sole surimi tourteau tripes truite turbot volaille)
-MEATS_AND_FISHES = MEAT_AND_FISH.map { |element| element.pluralize }
+MEATS_AND_FISHES = MEAT_AND_FISH.map { |element| pluralize_name(element) }
 
 class ScrappMarmitonRecipes
   def initialize(attributes = {})
