@@ -6,6 +6,8 @@ class UserRecipesController < ApplicationController
   end
 
   def show
+    @ingredients = @user_recipe.recipe.ingredient_recipes.includes(:ingredient)
+    @steps = @user_recipe.recipe.steps
   end
 
   def create

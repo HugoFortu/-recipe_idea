@@ -1,5 +1,27 @@
-<div class="recipe-banner" style="background-image: url('<%= image_path @user_recipe.recipe.image_url %>')"></div>
-<%= "#{@user_recipe.recipe.name} - #{@user_recipe.recipe.preptime}"%>
+<div class="recipe-banner" style="background-image: url('<%= @user_recipe.recipe.image_url %>')"></div>
+<div class="container">
+  <h3><%= @user_recipe.recipe.name %></h3>
+  <%= link_to "Ajouter cette recette à ma liste de course", add_to_list_user_recipe_path(@user_recipe), class: "btn btn-primary" %>
+</div>
 
-<%# Le lien ci dessous devrait ouvrir une modale, d'un formulaire d'une requete post qui permettrait de lancer ensuite le service add_to_shopping_list uis redirect vers la show de list%>
-<%= link_to "Ajouter cette recette à ma liste", add_to_list_user_recipe_path(@user_recipe), class: "btn btn-primary" %>
+<div class="d-flex row">
+  <% @ingredients.each do |ingredient|%>
+  <div class="m-auto my-4 col-3 text-center card-ingredient">
+    <p><%= "#{ingredient.ingredient.name}" %></p>
+    <%= image_tag ingredient.ingredient.image, class: "list-ingredients mt-2" %>
+    <p><%= "Doses: #{ingredient.dose}" %></p>
+  </div>
+  <% end %>
+</div>
+
+
+
+
+
+  <% @steps.each do |step|%>
+    <div class="container">
+      <p><%= "#{step.order}- #{step.description}" %></p>
+
+    </div>
+  <% end %>
+
