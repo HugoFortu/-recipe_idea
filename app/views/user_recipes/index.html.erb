@@ -1,18 +1,8 @@
-<h1>My recipes</h1>
-
+<h3>My recipes</h3>
 <div class="container">
-  <% @user_recipes.each do |user_recipe|  %>
-    <%= user_recipe.recipe.name %>
-    <% user_recipe.recipe.tags.each do |tag|%>
-      <ul>
-        <li><%= tag.name %></li>
-      </ul>
-    <% end %>
-    <h4>Etapes des recettes</h4>
-    <% user_recipe.recipe.steps.each do |step|%>
-      <ol>
-        <li><%= "#{step.order}- #{step.description}" %></li>
-      </ol>
+  <% @user_recipes.each do |recipe| %>
+    <%= link_to user_recipe_path(recipe), class:"link-text" do %>
+      <%= render 'shared/recipe_list', recipe: recipe.recipe  %>
     <% end %>
   <% end %>
 </div>

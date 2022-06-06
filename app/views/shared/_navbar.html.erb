@@ -12,6 +12,9 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item text-center">
+            <%= link_to "Mes recettes", user_recipes_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item text-center">
             <%= link_to "Ingredients", user_ingredient_categories_path(current_user), class: "nav-link" %>
           </li>
           <li class="nav-item text-center">
