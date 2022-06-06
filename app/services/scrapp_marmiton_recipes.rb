@@ -80,20 +80,20 @@ class ScrappMarmitonRecipes
       name = element.search(".itCXhd").text.strip.capitalize
       name = element.search(".cDbUWZ").text.strip.capitalize if name == ""
       dose = element.search(".epviYI").text.strip
-      ingredient = find_ingredient(name, doc)
-      tags << "végé" if (count_elements(MEAT_AND_FISH, ingredient) == 0) || (count_elements(MEATS_AND_FISHES, ingredient) == 0)
+      image = element.search("img").attribute("data-src").value.strip
+      ingredient = find_ingredient(name, doc, image)
+      tags << "végé" if (count_elements(MEAT_AND_FISH, ingredient) == 0 || count_elements(MEATS_AND_FISHES, ingredient) == 0)
       IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
     end
     RecipeTag.create(recipe: @recipe, tag: Tag.find_by(name: "Végé")) if tags.include?("végé")
   end
 
-  def find_ingredient(name, doc)
+  def find_ingredient(name, doc, image)
     pluralized_name = pluralize_name(name)
-    ingredient = Ingredient.find_by(name: pluralized_name)
+    ingredient = Ingredient.find_by(name: name)
     if ingredient.nil?
-      image = doc.search("img").attribute("src").value.strip
       category = IngredientCategory.find_by(name: "à renseigner")
-      ingredient = Ingredient.create(name: pluralized_name, ingredient_category: category, image: image)
+      ingredient = Ingredient.create(name: name, ingredient_category: category, image: image)
     end
     ingredient
   end
@@ -103,6 +103,8 @@ class ScrappMarmitonRecipes
   end
 
   def pluralize_name(name)
-    name.pluralize unless name.split('').last == 'x'
+    last_name = name.split(" ").last
+    plural_last_name = JSON.parse(URI("https://french-pluralize-api.herokuapp.com/#{I18n.transliterate(last_name)}").read)["plural"]
+    name.gsub(/#{last_name}/, plural_last_name)
   end
 end

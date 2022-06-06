@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  skip_before_action :authenticate_user!, only: :index
+  skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :find_recipe, only: [:show, :edit, :update]
 
   def index
@@ -17,6 +17,8 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @ingredients = @recipe.ingredient_recipes.includes(:ingredient)
+    @steps = @recipe.steps
   end
 
   def edit
