@@ -28,7 +28,7 @@ class ScrappMarmitonRecipes
   end
 
   def call
-    @recipe = Recipe.find(@recipe_id)
+    @recipe = Recipe.includes(:user_recipes).find(@recipe_id)
     html = URI(@recipe.url).read
     doc = Nokogiri::HTML(html, nil, "utf-8")
     tag = add_tag(doc)
@@ -37,7 +37,7 @@ class ScrappMarmitonRecipes
     steps = add_steps(doc)
     ingredients = add_ingredients(doc)
     @recipe.update(preptime: preptime, portion: portion)
-    Recipe.not_recorded.destroy_all
+    Recipe.not_recorded.includes([:mealplan, :steps, :ingredient_recipes, :recipe_tags]).destroy_all
     UserRecipe.find_or_create_by(recipe: @recipe, user: @current_user)
   end
 
@@ -82,7 +82,11 @@ class ScrappMarmitonRecipes
       dose = element.search(".epviYI").text.strip
       image = element.search("img").attribute("data-src").value.strip
       ingredient = find_ingredient(name, doc, image)
-      (count_elements(MEAT_AND_FISH, ingredient.name.downcase) != 0 || count_elements(MEATS_AND_FISHES, ingredient.name.downcase) != 0) ? tags << "meat" :  tags << "végé"
+      if (ingredient.name.downcase != "oeuf" && ingredient.name.downcase != "oeufs")
+        (count_elements(MEAT_AND_FISH, ingredient.name.downcase) != 0 || count_elements(MEATS_AND_FISHES, ingredient.name.downcase) != 0) ? tags << "meat" :  tags << "végé"
+      else
+        tags << "végé"
+      end
       IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
     end
     p tags
@@ -100,7 +104,7 @@ class ScrappMarmitonRecipes
   end
 
   def count_elements(constant, ingredient)
-    constant.count {|element| element == ingredient }
+    constant.count {|element| element.match(/#{ingredient}/i)}
   end
 
   def pluralize_name(name)
