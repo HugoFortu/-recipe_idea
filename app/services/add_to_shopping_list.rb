@@ -7,7 +7,7 @@ class AddToShoppingList
 
   def call
     portion_ratio = @user_portion / @user_recipe.recipe.portion.to_f
-    @user_recipe.recipe.ingredient_recipes.each do |ingredient_recipe|
+    @user_recipe.recipe.ingredient_recipes.includes(:ingredient).each do |ingredient_recipe|
       new_ingredient_dose = adapt_dose(ingredient_recipe, portion_ratio)
       ingredient_name = ingredient_recipe.ingredient.name
       add_to_list(ingredient_name, new_ingredient_dose)
@@ -38,6 +38,8 @@ class AddToShoppingList
     if dose_splitted[1] == "g"
       new_dose = (dose_splitted.first.to_f * portion_ratio).round.to_s
     elsif dose_splitted[1] == "cl"
+      new_dose = (dose_splitted.first.to_f * portion_ratio).round.to_s
+    elsif (dose_splitted.first.to_f * portion_ratio) %1 == 0
       new_dose = (dose_splitted.first.to_f * portion_ratio).round.to_s
     else
       new_dose = (dose_splitted.first.to_f * portion_ratio).round(1).to_s

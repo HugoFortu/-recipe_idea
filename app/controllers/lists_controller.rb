@@ -11,7 +11,7 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    @list_ingredients = ListIngredient.where(list: @list)
+    @list_ingredients = ListIngredient.where(list: @list).includes(:ingredient)
     @list_ingredients.where(checked: true).destroy_all
 
     redirect_to list_path(@list)

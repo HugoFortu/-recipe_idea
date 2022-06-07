@@ -1,10 +1,10 @@
 require "open-uri"
 require "nokogiri"
 
-MEAT_AND_FISH = %w(Agneau Porc Abats Poulet Boeuf Veau Mouton Canard Anchois Andouille Andouillette Anguille Bacon Baudroie Beef Steak Bifteck Bigorneau Dinde Boudin Viande Bresaola Bulot Cabillaud Caille Calamar Crabe Cassoulet Cervelas Saucisse Charcuteries Chapon Chipolata Chorizo Daurade Jambon Diot Dorade Faisan Faux-filet filet foie poisson Crevette Gambas Coppa Crevettes Lapin Gésiers Haddock Hareng Homard Huître Jambonneau lotte Cochon Langouste Langoustine Lard Lardons Lieu Limande Maquereau Sardine Merlu Merlan Mérou Moelle Mortadelle Morue Moules Pétoncle saint-jacques paleron palourde oie pancetta Panga Pastrami pâté paupiette saumon thon pintade poitrine poule poulpe praire écrevisse raie rillettes rosbif rosette rognons rouget rumsteak rumsteck saint-pierre salami saucisson scampi seiche sole surimi tourteau tripes truite turbot volaille)
-MEATS_AND_FISHES = MEAT_AND_FISH.map { |element| pluralize_name(element) }
-
 class ScrappMarmitonRecipes
+  MEAT_AND_FISH = ["agneau", "porc", "abats", "poulet", "boeuf", "veau", "mouton", "canard", "anchois", "andouille", "andouillette", "anguille", "bacon", "baudroie", "beef", "steak", "bifteck", "bigorneau", "dinde", "boudin", "viande", "bresaola", "bulot", "cabillaud", "caille", "calamar", "crabe", "cassoulet", "cervelas", "saucisse", "charcuteries", "chapon", "chipolata", "chorizo", "daurade", "jambon", "diot", "dorade", "faisan", "faux-filet", "filet", "foie", "poisson", "crevette", "gambas", "coppa", "crevettes", "lapin", "gésiers", "haddock", "hareng", "homard", "huître", "jambonneau", "lotte", "cochon", "langouste", "langoustine", "lard", "lardons", "lieu", "limande", "maquereau", "sardine", "merlu", "merlan", "mérou", "moelle", "mortadelle", "morue", "moules", "pétoncle", "saint-jacques", "paleron", "palourde", "oie", "pancetta", "panga", "pastrami", "pâté", "paupiette", "saumon", "thon", "pintade", "poitrine", "poule", "poulpe", "praire", "écrevisse", "raie", "rillettes", "rosbif", "rosette", "rognons", "rouget", "rumsteak", "rumsteck", "saint-pierre", "salami", "saucisson", "scampi", "seiche", "sole", "surimi", "tourteau", "tripes", "truite", "turbot", "volaille"]
+  MEATS_AND_FISHES = ["agneaux", "porcs", "abats", "poulets", "boeufs", "veaux", "moutons", "canards", "anchois", "andouilles", "andouillettes", "anguilles", "bacons", "baudroies", "beefs", "steaks", "biftecks", "bigorneaux", "dindes", "boudins", "viandes", "bresaolas", "bulots", "cabillauds", "cailles", "calamars", "crabes", "cassoulets", "cervelas", "saucisses", "charcuteries", "chapons", "chipolatas", "chorizos", "daurades", "jambons", "diots", "dorades", "faisans", "faux-filets", "filets", "foies", "poissons", "crevettes", "gambas", "coppas", "crevettes", "lapins", "gesiers", "haddocks", "harengs", "homards", "huitres", "jambonneaux", "lottes", "cochons", "langoustes", "langoustines", "lards", "lardons", "lieus", "limandes", "maquereaux", "sardines", "merlus", "merlans", "merous", "moelles", "mortadelles", "morues", "moules", "petoncles", "saint-jacques", "palerons", "palourdes", "oies", "pancettas", "pangas", "pastramis", "pates", "paupiettes", "saumons", "thons", "pintades", "poitrines", "poules", "poulpes", "praires", "ecrevisses", "raies", "rillettes", "rosbifs", "rosettes", "rognons", "rougets", "rumsteaks", "rumstecks", "saint-pierres", "salamis", "saucissons", "scampis", "seiches", "soles", "surimis", "tourteaux", "tripes", "truites", "turbots", "volailles"]
+
   def initialize(attributes = {})
     @ingredient = attributes[:ingredient]
     @recipe_id = attributes[:id]
@@ -38,10 +38,10 @@ class ScrappMarmitonRecipes
     ingredients = add_ingredients(doc)
     @recipe.update(preptime: preptime, portion: portion)
     Recipe.not_recorded.destroy_all
-    UserRecipe.create(user: @current_user, recipe: @recipe)
+    UserRecipe.find_or_create_by(recipe: @recipe, user: @current_user)
   end
 
-    def call_with_url
+  def call_with_url
     html = URI(@url).read
     doc = Nokogiri::HTML(html, nil, "utf-8")
     name = doc.search(".itJBWW").text.strip
@@ -53,7 +53,7 @@ class ScrappMarmitonRecipes
     ingredients = add_ingredients(doc)
     tag = add_tag(doc)
     recipe = Recipe.create(name: name, url: @url, stars: stars, image_url: image, preptime: preptime, portion: portion)
-    UserRecipe.create(user: @current_user, recipe: recipe)
+    UserRecipe.find_or_create_by(recipe: @recipe, user: @current_user)
   end
 
   private
@@ -82,14 +82,14 @@ class ScrappMarmitonRecipes
       dose = element.search(".epviYI").text.strip
       image = element.search("img").attribute("data-src").value.strip
       ingredient = find_ingredient(name, doc, image)
-      tags << "végé" if (count_elements(MEAT_AND_FISH, ingredient) == 0 || count_elements(MEATS_AND_FISHES, ingredient) == 0)
+      (count_elements(MEAT_AND_FISH, ingredient.name.downcase) != 0 || count_elements(MEATS_AND_FISHES, ingredient.name.downcase) != 0) ? tags << "meat" :  tags << "végé"
       IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
     end
-    RecipeTag.create(recipe: @recipe, tag: Tag.find_by(name: "Végé")) if tags.include?("végé")
+    RecipeTag.create(recipe: @recipe, tag: Tag.find_by(name: "Végé")) unless tags.include?("meat")
   end
 
   def find_ingredient(name, doc, image)
-    pluralized_name = pluralize_name(name)
+    pluralized_name = self.pluralize_name(name)
     ingredient = Ingredient.find_by(name: name)
     if ingredient.nil?
       category = IngredientCategory.find_by(name: "à renseigner")
@@ -99,7 +99,7 @@ class ScrappMarmitonRecipes
   end
 
   def count_elements(constant, ingredient)
-    constant.count {|element| element.match(/#{ingredient.name}/i)}
+    constant.count {|element| element.match(/#{ingredient}/i)}
   end
 
   def pluralize_name(name)
