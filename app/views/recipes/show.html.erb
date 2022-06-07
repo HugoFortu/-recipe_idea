@@ -1,20 +1,24 @@
 <div class="recipe-banner" style="background-image: url('<%= @recipe.image_url %>')"></div>
-<div class="container d-flex align-items-center">
+<div class="container text-center">
   <h3><%= @recipe.name %></h3>
+  <div class="d-flex align-items-center">
   <% if !current_user.nil? %>
     <p id="button-add">Ajouter cette recette à ma liste de recettes</p>
     <%= button_to user_recipes_path(recipe: @recipe), class: "btn px-2 align-items-center" do %>
       <%= image_tag 'plus.png', class:"plus" %>
     <% end %>
   <% end %>
+  </div>
 </div>
 
 <div class="d-flex row ingredient-container">
   <% @ingredients.each do |ingredient|%>
   <div class="col-3 text-center card-ingredient">
-    <p><%= "#{ingredient.ingredient.name}" %></p>
-    <%= image_tag ingredient.ingredient.image, class: "list-ingredients mt-2" %>
-    <p><%= "Doses: #{ingredient.dose}" %></p>
+    <p id="ingredient-name"><%= "#{ingredient.ingredient.name}" %></p>
+    <%= image_tag ingredient.ingredient.image, class: "list-ingredients my-2" %>
+    <% if ingredient.dose != "" %>
+      <p><%= "Qté: #{ingredient.dose}" %></p>
+    <% end %>
   </div>
   <% end %>
 </div>
