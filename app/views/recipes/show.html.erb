@@ -4,7 +4,7 @@
   <div class="d-flex align-items-center">
   <% if !current_user.nil? %>
     <p id="button-add">Ajouter cette recette à ma liste de recettes</p>
-    <%= button_to user_recipes_path(recipe: @recipe), class: "btn px-2 align-items-center" do %>
+    <%= button_to user_recipes_path(recipe_id: @recipe.id), class: "btn px-2 align-items-center" do %>
       <%= image_tag 'plus.png', class:"plus" %>
     <% end %>
   <% end %>
