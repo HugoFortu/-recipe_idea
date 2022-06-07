@@ -4,9 +4,9 @@
   <%= link_to "Ajouter cette recette à ma liste de course", add_to_list_user_recipe_path(@user_recipe), class: "btn btn-primary" %>
 </div>
 
-<div class="d-flex row">
+<div class="d-flex row ingredient-container">
   <% @ingredients.each do |ingredient|%>
-  <div class="m-auto my-4 col-3 text-center card-ingredient">
+  <div class="col-3 text-center card-ingredient">
     <p><%= "#{ingredient.ingredient.name}" %></p>
     <%= image_tag ingredient.ingredient.image, class: "list-ingredients mt-2" %>
     <p><%= "Doses: #{ingredient.dose}" %></p>
@@ -14,13 +14,9 @@
   <% end %>
 </div>
 
-
-
-
-
-  <% @steps.each do |step|%>
-    <div class="container">
-      <p><%= "#{step.order}- #{step.description}" %></p>
-    </div>
-  <% end %>
+<% @steps.each do |step|%>
+  <div class="container">
+    <p><%= "#{step.order}- #{step.description}" %></p>
+  </div>
+<% end %>
 

@@ -14,7 +14,7 @@ class ScrappMarmitonRecipes
   end
 
   def search
-    html = URI("#{@base_url}/recettes/recherche.aspx?aqt=#{@ingredient}").read
+    html = URI("#{@base_url}/recettes/recherche.aspx?aqt=#{I18n.transliterate(@ingredient)}").read
     doc = Nokogiri::HTML(html, nil, "utf-8")
     results = []
     doc.search(".gACiYG").first(10).each do |element|
@@ -85,6 +85,7 @@ class ScrappMarmitonRecipes
       (count_elements(MEAT_AND_FISH, ingredient.name.downcase) != 0 || count_elements(MEATS_AND_FISHES, ingredient.name.downcase) != 0) ? tags << "meat" :  tags << "végé"
       IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
     end
+    p tags
     RecipeTag.create(recipe: @recipe, tag: Tag.find_by(name: "Végé")) unless tags.include?("meat")
   end
 
@@ -99,7 +100,7 @@ class ScrappMarmitonRecipes
   end
 
   def count_elements(constant, ingredient)
-    constant.count {|element| element.match(/#{ingredient}/i)}
+    constant.count {|element| element == ingredient }
   end
 
   def pluralize_name(name)
