@@ -8,6 +8,15 @@ background-position: center;
 .card-ingredient {
   margin: 0;
   padding: 0;
-
   background-size: cover;
+    p {
+      font-size: 10px;
+      margin: 0;
+    }
+}
+
+.ingredient-container {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  margin: 0.8rem;
 }
