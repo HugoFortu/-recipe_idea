@@ -11,8 +11,12 @@ class UserRecipesController < ApplicationController
   end
 
   def create
-    @user_recipe = ScrappMarmitonRecipes.new(id: params[:recipe_id], user: current_user).call
-
+    if Recipe.find(params[:recipe_id]).portion == nil
+      @user_recipe = ScrappMarmitonRecipes.new(id: params[:recipe_id], user: current_user).call
+    else
+      recipe = Recipe.find(params[:recipe_id])
+      @user_recipe = UserRecipe.find_or_create_by(recipe: recipe, user: current_user)
+    end
     redirect_to user_recipe_path(@user_recipe)
   end
 

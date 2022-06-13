@@ -19,7 +19,7 @@ class ScrappMarmitonRecipes
     results = []
     doc.search(".gACiYG").first(10).each do |element|
       name = element.search("h4").text.strip
-      image = element.search(".hiKnrc img").attribute("data-src").value.strip
+      image = element.search(".hiKnrc img").attribute("src").value.strip
       rating = element.search(".jHwZwD").text.strip
       url = @base_url + (element.attribute("href").value.strip)
       results << Recipe.create(name: name, image_url: image, stars: rating, url: url)
@@ -28,7 +28,7 @@ class ScrappMarmitonRecipes
   end
 
   def call
-    @recipe = Recipe.includes(:user_recipes).find(@recipe_id)
+    @recipe = Recipe.find(@recipe_id)
     html = URI(@recipe.url).read
     doc = Nokogiri::HTML(html, nil, "utf-8")
     tag = add_tag(doc)
@@ -46,7 +46,7 @@ class ScrappMarmitonRecipes
     doc = Nokogiri::HTML(html, nil, "utf-8")
     name = doc.search(".itJBWW").text.strip
     stars = doc.search(".jHwZwD").text.strip
-    image = doc.search(".vKBPb").first.attribute("data-src").value.strip
+    image = doc.search(".vKBPb").first.attribute("src").value.strip
     preptime = doc.search(".iDYkZP").first.text.strip
     portion = doc.search(".hYSrSW").text.strip.to_i
     steps = add_steps(doc)
@@ -80,7 +80,7 @@ class ScrappMarmitonRecipes
       name = element.search(".itCXhd").text.strip.capitalize
       name = element.search(".cDbUWZ").text.strip.capitalize if name == ""
       dose = element.search(".epviYI").text.strip
-      image = element.search("img").attribute("data-src").value.strip
+      image = element.search("img").attribute("src").value.strip
       ingredient = find_ingredient(name, doc, image)
       if (ingredient.name.downcase != "oeuf" && ingredient.name.downcase != "oeufs")
         (count_elements(MEAT_AND_FISH, ingredient.name.downcase) != 0 || count_elements(MEATS_AND_FISHES, ingredient.name.downcase) != 0) ? tags << "meat" :  tags << "végé"
