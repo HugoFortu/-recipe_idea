@@ -1,11 +1,19 @@
 <div class="recipe-banner" style="background-image: url('<%= @recipe.image_url %>')"></div>
 <div class="container text-center">
   <h3><%= @recipe.name %></h3>
-  <div class="d-flex align-items-center">
+  <div class="d-flex justify-content-center align-items-center">
   <% if !current_user.nil? %>
-    <p id="button-add">Ajouter cette recette à ma liste de recettes</p>
-    <%= button_to user_recipes_path(recipe_id: @recipe.id), class: "btn px-2 align-items-center" do %>
-      <%= image_tag 'plus.png', class:"plus" %>
+    <% if UserRecipe.where(recipe: @recipe, user: current_user) == [] %>
+      <p id="button-add">Ajouter à ma liste de recettes</p>
+      <%= button_to user_recipes_path(recipe_id: @recipe.id), class: "btn px-2 align-items-center" do %>
+        <%= image_tag 'plus.png', class:"plus" %>
+      <% end %>
+    <% else %>
+      <% user_recipe = UserRecipe.where(recipe: @recipe, user: current_user).first %>
+      <p id="button-add">Ajouter à ma liste de course:</p>
+      <%= button_to add_to_list_user_recipe_path(user_recipe), method: :get, class: "btn px-2 align-items-center" do %>
+        <%= image_tag 'add-to-cart.png', class: "add-to-cart" %>
+      <% end %>
     <% end %>
   <% end %>
   </div>

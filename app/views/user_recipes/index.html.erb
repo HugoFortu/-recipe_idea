@@ -1,7 +1,7 @@
-<h3>My recipes</h3>
+<h3>Mes recettes:</h3>
 <div class="container">
   <% @user_recipes.each do |recipe| %>
-    <%= link_to user_recipe_path(recipe), class:"link-text" do %>
+    <%= link_to recipe_path(recipe.recipe), class:"link-text" do %>
       <%= render 'shared/recipe_list', recipe: recipe.recipe  %>
     <% end %>
   <% end %>

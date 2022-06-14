@@ -17,7 +17,7 @@ class UserRecipesController < ApplicationController
       recipe = Recipe.find(params[:recipe_id])
       @user_recipe = UserRecipe.find_or_create_by(recipe: recipe, user: current_user)
     end
-    redirect_to user_recipe_path(@user_recipe)
+    redirect_to recipe_path(params[:recipe_id])
   end
 
   def add_to_list
