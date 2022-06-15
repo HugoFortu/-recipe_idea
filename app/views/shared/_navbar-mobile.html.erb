@@ -1,0 +1,19 @@
+<div id="myNav" >
+  <nav class="d-flex align-items-center justify-content-between navbar-mobile bg-white fixed-bottom h-60 mx-3 my-2">
+    <%= link_to root_path, class: "navbar-brand #{ params[:controller] == 'recipes' && params[:action] == 'index' ? 'active-nav' : 'sleep-nav'}" do %>
+      <div class="d-flex flex-column mt-1 ms-3 "><%= image_tag "vegetable.png", class:"img-navbar " %><p class="text-navbar text-center">Accueil</p></div>
+    <% end %>
+    <%= link_to user_recipes_path, class: "navbar-brand #{ params[:controller] == 'user_recipes' && params[:action] == 'index' ? 'active-nav' : 'sleep-nav'}" do %>
+      <div class="d-flex flex-column mt-1 "><%= image_tag "cookbook.png", class:"img-navbar " %><p class="text-navbar text-center">Mes recettes</p></div>
+    <% end %>
+    <%= link_to user_ingredient_categories_path(current_user), class: "navbar-brand #{ params[:controller] == 'ingredient_categories' && params[:action] == 'index' ? 'active-nav' : 'sleep-nav'}" do %>
+      <div class="d-flex flex-column mt-1 "><%= image_tag "grocery.png", class:"img-navbar " %><p class="text-navbar text-center">Ingredients</p></div>
+    <% end %>
+    <%= link_to list_path(current_user.list), class: "navbar-brand #{ params[:controller] == 'lists' && params[:action] == 'show' ? 'active-nav' : 'sleep-nav'}" do %>
+      <div class="d-flex flex-column mt-1 "><%= image_tag "liste-de-souhaits.png", class:"img-navbar " %><p class="text-navbar text-center">Liste</p></div>
+    <% end %>
+    <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-deco navbar-brand sleep-nav", data: {turbo_confirm:  'Etes vous sûr de vouloir vous déconnecter?'} do %>
+      <div class="d-flex flex-column mt-1 "><%= image_tag "user.png", class:"img-navbar " %><p class="text-navbar text-center">Déconnexion</p></div>
+    <% end %>
+  </nav>
+</div>
