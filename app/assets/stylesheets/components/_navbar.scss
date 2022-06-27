@@ -12,6 +12,7 @@
 
     .mobile-adapt {
       margin-bottom: 12vh;
+      margin-top: 3vh;
     }
 
     .sleep-nav {
@@ -28,6 +29,10 @@
     .active-nav {
       color: #3CB9B7 !important;
       font-size: 11px !important;
+      .notification {
+          top: -6px;
+          left: -20px;
+        }
     }
 
     .img-navbar {
@@ -39,6 +44,24 @@
     .text-navbar {
       margin: 0;
     }
+
+
+.notification {
+  position: relative;
+  top: -6px;
+  left: -25px;
+  background-color: #ED3634;
+  color: #F7F7F7;
+  border-radius: 50%;
+  height: 18px;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-align: center;
+    p {
+      margin: 0;
+      font-size: 9px;
+    }
+}
 
 @media screen and (min-width: 415px) {
 
@@ -55,6 +78,7 @@
 
   .mobile-adapt {
     margin-bottom: 14vh;
+    margin-top: 3vh;
   }
 
   .sleep-nav {
@@ -70,6 +94,10 @@
   .active-nav {
     color: #3CB9B7 !important;
     font-size: 15px !important;
+    .notification {
+        top: -6px;
+        left: -20px;
+    }
   }
 
   .img-navbar {
@@ -80,6 +108,24 @@
 
   .text-navbar {
     margin: 0;
+  }
+}
+
+.notification {
+  position: relative;
+  top: -6px;
+  left: -16px;
+  background-color: #ED3634;
+  color: #F7F7F7;
+  border-radius: 50%;
+  height: 22px;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 11px;
   }
 }
 
@@ -101,4 +147,22 @@
     .navbar-lewagon .navbar-brand img {
       width: 40px;
     }
+
+  .notification {
+    position: relative;
+    top: -10px;
+    left: -10px;
+    background-color: #ED3634;
+    color: #F7F7F7;
+    border-radius: 50%;
+    height: 22px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;
+
+    p {
+      margin: 0;
+      font-size: 11px;
+    }
+  }
 }

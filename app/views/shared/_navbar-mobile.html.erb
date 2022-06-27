@@ -6,8 +6,9 @@
     <%= link_to user_recipes_path, class: "navbar-brand #{ params[:controller] == 'user_recipes' && params[:action] == 'index' ? 'active-nav' : 'sleep-nav'}" do %>
       <div class="d-flex flex-column mt-1 "><%= image_tag "cookbook.png", class:"img-navbar " %><p class="text-navbar text-center">Mes recettes</p></div>
     <% end %>
-    <%= link_to user_ingredient_categories_path(current_user), class: "navbar-brand #{ params[:controller] == 'ingredient_categories' && params[:action] == 'index' ? 'active-nav' : 'sleep-nav'}" do %>
+    <%= link_to user_ingredient_categories_path(current_user), class: "navbar-brand d-flex #{ params[:controller] == 'ingredient_categories' && params[:action] == 'index' ? 'active-nav' : 'sleep-nav'}" do %>
       <div class="d-flex flex-column mt-1 "><%= image_tag "grocery.png", class:"img-navbar " %><p class="text-navbar text-center">Ingredients</p></div>
+      <%= render "shared/notif" if Ingredient.where(ingredient_category: IngredientCategory.find_by(name: "à renseigner")) %>
     <% end %>
     <%= link_to list_path(current_user.list), class: "navbar-brand #{ params[:controller] == 'lists' && params[:action] == 'show' ? 'active-nav' : 'sleep-nav'}" do %>
       <div class="d-flex flex-column mt-1 "><%= image_tag "liste-de-souhaits.png", class:"img-navbar " %><p class="text-navbar text-center">Liste</p></div>

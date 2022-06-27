@@ -1,6 +1,6 @@
 
-<!--
-      Essayer d'ajouter une petite notification pour dire que des ingrédients sont en attente de validation. (ajouter catégorie)
+
+  <!--     Essayer d'ajouter une petite notification pour dire que des ingrédients sont en attente de validation. (ajouter catégorie) -->
 <div class="margin">
 <%= simple_form_for [@product, @component] do |f| %>
   <div id="">
@@ -30,11 +30,11 @@
         <% end %>
 
       </div>
-    </div> -->
+    </div>
 
     <!-- MODAL -->
 
-  <!--  <div class="overlay hidden fixed inset-0">
+    <div class="overlay hidden fixed inset-0">
       <div class="modale z-10 bg-white">
         <button class="absolute top-0 right-0 p-4 text-4xl text-right"><i class="fas fa-times"></i></button>
         <div class=" flex flex-col items-center">
@@ -50,10 +50,10 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
 
-  <!--  Partial Component
+  <!--  Partial Component -->
 
     <% if exist == true  %>
   <label class="flex flex-col mx-auto mb-6 clickable_components m-auto text-center exist-component">
@@ -66,4 +66,4 @@
   <input type="radio" class="hidden" name="component[name]" value="<%= name %>">
 </label>
 
--->
+

@@ -1,0 +1,3 @@
+<div class="notification d-flex align-items-center">
+  <p><%= Ingredient.includes(:ingredient_category).count { |ingredient| ingredient.ingredient_category.name == "à renseigner" }  %></p>
+</div>

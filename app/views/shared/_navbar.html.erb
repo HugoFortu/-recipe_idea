@@ -14,8 +14,9 @@
           <li class="nav-item text-end">
             <%= link_to "Mes recettes", user_recipes_path, class: "nav-link" %>
           </li>
-          <li class="nav-item text-end">
+          <li class="nav-item text-end d-flex align-items-center">
             <%= link_to "Ingredients", user_ingredient_categories_path(current_user), class: "nav-link" %>
+            <%= render "shared/notif" if Ingredient.where(ingredient_category: IngredientCategory.find_by(name: "à renseigner")) %>
           </li>
           <li class="nav-item text-end">
             <%= link_to "Ma liste", list_path(current_user.list), class: "nav-link" %>
