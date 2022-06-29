@@ -15,6 +15,7 @@ class UpdateUserJob < ApplicationJob
     IngredientCategory.create(name: "Vrac", shop: shop, image: "flour.png", user: user)
     IngredientCategory.create(name: "conserves", shop: shop, image: "canned-food.png", user: user)
     IngredientCategory.create(name: "divers", shop: shop, image: "grocery-cart.png", user: user)
+    IngredientCategory.create(name: "fromage", shop: shop, image: "cheese.png", user: user)
     IngredientCategory.create(name: "à renseigner", shop: shop, image: "grocery-cart.png", user: user)
   end
 end

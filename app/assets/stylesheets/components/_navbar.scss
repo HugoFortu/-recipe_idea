@@ -53,9 +53,8 @@
   background-color: #ED3634;
   color: #F7F7F7;
   border-radius: 50%;
-  height: 18px;
-  padding-left: 2px;
-  padding-right: 2px;
+  height: fit-content;
+  padding: 2px;
   text-align: center;
     p {
       margin: 0;
@@ -118,9 +117,8 @@
   background-color: #ED3634;
   color: #F7F7F7;
   border-radius: 50%;
-  height: 22px;
-  padding-left: 2px;
-  padding-right: 2px;
+  height: fit-content;
+  padding: 2px;
   text-align: center;
 
   p {
@@ -155,9 +153,8 @@
     background-color: #ED3634;
     color: #F7F7F7;
     border-radius: 50%;
-    height: 22px;
-    padding-left: 2px;
-    padding-right: 2px;
+    height: auto;
+    padding: 2px;
     text-align: center;
 
     p {
