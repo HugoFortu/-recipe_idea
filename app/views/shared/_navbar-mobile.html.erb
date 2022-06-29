@@ -13,7 +13,7 @@
     <%= link_to list_path(current_user.list), class: "navbar-brand #{ params[:controller] == 'lists' && params[:action] == 'show' ? 'active-nav' : 'sleep-nav'}" do %>
       <div class="d-flex flex-column mt-1 "><%= image_tag "liste-de-souhaits.png", class:"img-navbar " %><p class="text-navbar text-center">Liste</p></div>
     <% end %>
-    <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-deco navbar-brand sleep-nav", data: {turbo_confirm:  'Etes vous sûr de vouloir vous déconnecter?'} do %>
+    <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-deco navbar-brand sleep-nav", data: {"turbo-method": :delete, turbo_confirm:  'Etes vous sûr de vouloir vous déconnecter?'} do %>
       <div class="d-flex flex-column mt-1 "><%= image_tag "user.png", class:"img-navbar " %><p class="text-navbar text-center">Déconnexion</p></div>
     <% end %>
   </nav>

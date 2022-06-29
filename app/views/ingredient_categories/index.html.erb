@@ -6,3 +6,5 @@
   </div>
   <% end %>
 </div>
+
+<%= link_to "Edit ingredient", edit_ingredient_path(Ingredient.without_cat.first), class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
