@@ -53,9 +53,12 @@
   background-color: #ED3634;
   color: #F7F7F7;
   border-radius: 50%;
-  height: fit-content;
+  height: 18px;
+  width: 18px;
   padding: 2px;
   text-align: center;
+  justify-content: center;
+
     p {
       margin: 0;
       font-size: 9px;
@@ -117,9 +120,11 @@
   background-color: #ED3634;
   color: #F7F7F7;
   border-radius: 50%;
-  height: fit-content;
+  height: 18px;
+  width: 18px;
   padding: 2px;
   text-align: center;
+  justify-content: center;
 
   p {
     margin: 0;
@@ -153,8 +158,10 @@
     background-color: #ED3634;
     color: #F7F7F7;
     border-radius: 50%;
-    height: auto;
+    height: 18px;
+    width: 18px;
     padding: 2px;
+    justify-content: center;
     text-align: center;
 
     p {
