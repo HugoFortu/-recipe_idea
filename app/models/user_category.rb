@@ -4,4 +4,5 @@ class UserCategory < ApplicationRecord
   has_many :ingredient_categories
   has_many :ingredients, through: :ingredient_categories
 
+  scope :mine, -> (user) { where(user: user) }
 end

@@ -17,7 +17,7 @@
           <li class="nav-item text-end d-flex align-items-center">
             <%= link_to "Ingredients", user_user_categories_path(current_user), class: "nav-link" %>
             <% if UserCategory.where(user: current_user) != []  %>
-              <%= render "shared/notif" if IngredientCategory.where(user_category: UserCategory.find_by(user: current_user, name: "à renseigner")) %>
+              <%= render "shared/notif", user: current_user if ( IngredientCategory.where(user_category: UserCategory.find_by(user: current_user, name: "à renseigner")) && IngredientCategory.without_cat(current_user) != [] ) %>
             <% end %>
           </li>
           <li class="nav-item text-end">

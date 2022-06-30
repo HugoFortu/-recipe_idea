@@ -9,7 +9,7 @@
     <%= link_to user_user_categories_path(current_user), class: "navbar-brand d-flex #{ params[:controller] == 'user_categories' && params[:action] == 'index' ? 'active-nav' : 'sleep-nav'}" do %>
       <div class="d-flex flex-column mt-1 "><%= image_tag "grocery.png", class:"img-navbar " %><p class="text-navbar text-center">Ingredients</p></div>
       <% if UserCategory.where(user: current_user) != [] %>
-        <%= render "shared/notif" if ( IngredientCategory.where(user_category: UserCategory.find_by(user: current_user, name: "à renseigner")) && IngredientCategory.without_cat(current_user) != [] ) %>
+        <%= render "shared/notif", user: current_user if ( IngredientCategory.where(user_category: UserCategory.find_by(user: current_user, name: "à renseigner")) && IngredientCategory.without_cat(current_user) != [] ) %>
       <% end %>
     <% end %>
     <%= link_to list_path(current_user.list), class: "navbar-brand #{ params[:controller] == 'lists' && params[:action] == 'show' ? 'active-nav' : 'sleep-nav'}" do %>
