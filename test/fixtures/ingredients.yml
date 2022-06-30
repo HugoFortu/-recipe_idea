@@ -3,9 +3,9 @@
 one:
   name: MyString
   image: MyString
-  ingredient_category: one
+  user_category: one
 
 two:
   name: MyString
   image: MyString
-  ingredient_category: two
+  user_category: two

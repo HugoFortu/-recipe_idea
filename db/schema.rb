@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_05_165122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,14 +24,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
   end
 
   create_table "ingredient_categories", force: :cascade do |t|
-    t.bigint "shop_id", null: false
-    t.string "name"
-    t.string "image"
+    t.bigint "user_category_id", null: false
+    t.bigint "ingredient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["shop_id"], name: "index_ingredient_categories_on_shop_id"
-    t.index ["user_id"], name: "index_ingredient_categories_on_user_id"
+    t.index ["ingredient_id"], name: "index_ingredient_categories_on_ingredient_id"
+    t.index ["user_category_id"], name: "index_ingredient_categories_on_user_category_id"
   end
 
   create_table "ingredient_recipes", force: :cascade do |t|
@@ -47,10 +45,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
     t.string "image"
-    t.bigint "ingredient_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ingredient_category_id"], name: "index_ingredients_on_ingredient_category_id"
   end
 
   create_table "list_ingredients", force: :cascade do |t|
@@ -106,9 +102,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
     t.string "address"
     t.float "long"
     t.float "lat"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_shops_on_user_id"
   end
 
@@ -127,13 +123,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_categories", force: :cascade do |t|
+    t.bigint "shop_id", null: false
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_user_categories_on_shop_id"
+    t.index ["user_id"], name: "index_user_categories_on_user_id"
+  end
+
   create_table "user_recipes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "recipe_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.boolean "cooked", default: false
     t.boolean "favoris", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["recipe_id"], name: "index_user_recipes_on_recipe_id"
     t.index ["user_id"], name: "index_user_recipes_on_user_id"
   end
@@ -154,11 +161,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
 
   add_foreign_key "blacklisted_ingredients", "ingredients"
   add_foreign_key "blacklisted_ingredients", "users"
-  add_foreign_key "ingredient_categories", "shops"
-  add_foreign_key "ingredient_categories", "users"
+  add_foreign_key "ingredient_categories", "ingredients"
+  add_foreign_key "ingredient_categories", "user_categories"
   add_foreign_key "ingredient_recipes", "ingredients"
   add_foreign_key "ingredient_recipes", "recipes"
-  add_foreign_key "ingredients", "ingredient_categories"
   add_foreign_key "list_ingredients", "ingredients"
   add_foreign_key "list_ingredients", "lists"
   add_foreign_key "lists", "users"
@@ -167,6 +173,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_163518) do
   add_foreign_key "recipe_tags", "tags"
   add_foreign_key "shops", "users"
   add_foreign_key "steps", "recipes"
+  add_foreign_key "user_categories", "shops"
+  add_foreign_key "user_categories", "users"
   add_foreign_key "user_recipes", "recipes"
   add_foreign_key "user_recipes", "users"
 end

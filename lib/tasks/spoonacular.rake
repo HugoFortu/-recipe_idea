@@ -5,19 +5,19 @@ namespace :spoonacular do
       results = SpoonacularApi.new { "food/ingredients/#{id}/information" }.call
       unless results == "pas de lien"
           if results["categoryPath"].empty?
-            if !IngredientCategory.find_by(name: "not defined").nil?
-              category = IngredientCategory.find_by(name: "not defined")
+            if !UserCategory.find_by(name: "not defined").nil?
+              category = UserCategory.find_by(name: "not defined")
             else
-              category = IngredientCategory.create(shop: Shop.first, name: "not defined")
+              category = UserCategory.create(shop: Shop.first, name: "not defined")
             end
           else
-            if !IngredientCategory.find_by(name: results["categoryPath"][-1]).nil?
-              category = IngredientCategory.find_by(name: results["categoryPath"][-1])
+            if !UserCategory.find_by(name: results["categoryPath"][-1]).nil?
+              category = UserCategory.find_by(name: results["categoryPath"][-1])
             else
-              category = IngredientCategory.create(shop: Shop.first, name: results["categoryPath"][-1])
+              category = UserCategory.create(shop: Shop.first, name: results["categoryPath"][-1])
             end
           end
-        Ingredient.create(name: results["name"], ingredient_category: category)
+        Ingredient.create(name: results["name"], user_category: category)
         puts results["name"]
       end
       puts id

@@ -1,5 +1,6 @@
 class Ingredient < ApplicationRecord
-  belongs_to :ingredient_category
+  has_many :ingredient_categories
+  has_many :user_categories, through: :ingredient_categories
   has_many :ingredient_recipes
   has_many :recipes, through: :ingredient_recipes
   has_many :blacklisted_ingredients
@@ -7,6 +8,4 @@ class Ingredient < ApplicationRecord
   has_many :list_ingredients
 
   validates :name, presence: true, uniqueness: true
-
-  scope :without_cat, -> { where(ingredient_category_id: (IngredientCategory.find_by(name: "à renseigner")).id) }
 end

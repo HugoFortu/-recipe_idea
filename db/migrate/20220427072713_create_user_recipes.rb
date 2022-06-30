@@ -3,6 +3,8 @@ class CreateUserRecipes < ActiveRecord::Migration[7.0]
     create_table :user_recipes do |t|
       t.references :user, null: false, foreign_key: true
       t.references :recipe, null: false, foreign_key: true
+      t.boolean :cooked, default: false
+      t.boolean :favoris, default: false
 
       t.timestamps
     end

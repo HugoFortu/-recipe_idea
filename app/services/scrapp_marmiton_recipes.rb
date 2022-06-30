@@ -89,7 +89,6 @@ class ScrappMarmitonRecipes
       end
       IngredientRecipe.create(recipe: @recipe, ingredient: ingredient, dose: dose)
     end
-    p tags
     RecipeTag.create(recipe: @recipe, tag: Tag.find_by(name: "Végé")) unless tags.include?("meat")
   end
 
@@ -97,9 +96,10 @@ class ScrappMarmitonRecipes
     pluralized_name = self.pluralize_name(name)
     ingredient = Ingredient.find_by(name: name)
     if ingredient.nil?
-      category = IngredientCategory.find_by(name: "à renseigner")
-      ingredient = Ingredient.create(name: name, ingredient_category: category, image: image)
+      ingredient = Ingredient.create(name: name, image: image)
     end
+    category = UserCategory.find_by(user_id: @current_user, name: "à renseigner")
+    IngredientCategory.find_or_create_by(ingredient: ingredient, user_category: category)
     ingredient
   end
 

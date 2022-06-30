@@ -1,6 +1,6 @@
 require "test_helper"
 
-class IngredientCategoriesControllerTest < ActionDispatch::IntegrationTest
+class UserCategoryTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

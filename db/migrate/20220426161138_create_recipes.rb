@@ -4,11 +4,9 @@ class CreateRecipes < ActiveRecord::Migration[7.0]
       t.string :name
       t.text :description
       t.integer :portion
-      t.integer :stars
+      t.float :stars
       t.string :preptime
-      t.boolean :cooked, default: false
       t.string :url
-      t.boolean :favoris, default: false
 
       t.timestamps
     end

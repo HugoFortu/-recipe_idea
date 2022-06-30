@@ -1,0 +1,9 @@
+<div>
+  <%= ingredient_category.ingredient.name %>
+   <div class="category-container mt-2" style="background-image: url('<%= image_path ingredient_category.ingredient.image %>')"></div>
+  <%= simple_form_for ingredient_category do |f| %>
+  <p> Attribuer une catégorie :</p>
+    <%= f.input :user_category_id, collection: UserCategory.where(user: current_user), label: false, input_html: {class: ''} %>
+    <%= f.submit "OK", class: "btn btn-primary" %>
+  <% end %>
+</div>
