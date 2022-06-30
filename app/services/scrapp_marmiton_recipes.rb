@@ -99,7 +99,9 @@ class ScrappMarmitonRecipes
       ingredient = Ingredient.create(name: name, image: image)
     end
     category = UserCategory.find_by(user_id: @current_user, name: "à renseigner")
-    IngredientCategory.find_or_create_by(ingredient: ingredient, user_category: category)
+    if IngredientCategory.mine(@current_user).find_by(ingredient: ingredient).nil?
+      IngredientCategory.create(ingredient: ingredient, user_category: category)
+    end
     ingredient
   end
 

@@ -18,7 +18,9 @@ class UserRecipesController < ApplicationController
       @user_recipe = UserRecipe.find_or_create_by(recipe: recipe, user: current_user)
       recipe.ingredients.each do |ingredient|
         category = UserCategory.find_by(user_id: current_user, name: "à renseigner")
-        IngredientCategory.find_or_create_by(ingredient: ingredient, user_category: category)
+        if IngredientCategory.mine(current_user).find_by(ingredient: ingredient).nil?
+          IngredientCategory.create(ingredient: ingredient, user_category: category)
+        end
       end
     end
     redirect_to recipe_path(params[:recipe_id])
