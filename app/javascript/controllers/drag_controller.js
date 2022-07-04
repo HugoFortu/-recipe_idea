@@ -1,10 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 import { patch } from '@rails/request.js'
 
+
 export default class extends Controller {
   static targets = ["img", "category"]
   connect() {
-
     this.imgTargets.forEach(img =>
     img.ondragstart = () => {
       return false;

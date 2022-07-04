@@ -1,6 +1,7 @@
+<script id="DragDropTouch" src="https://bernardo-castilho.github.io/DragDropTouch/DragDropTouch.js"></script>
 <div class="container" data-controller="drag" data-action="dragstart->drag#dragstart dragover->drag#dragover dragenter->drag#dragenter drop->drag#drop dragend->drag#dragend" >
   <div class="d-flex flex-row justify-content-around">
-    <div class="col-sm ingredient-list">
+    <div class="col-sm ingredient-list" id="ingredientList">
     <% ingredient_categories.each do |ingredient_category| %>
       <div class="category-card" draggable="true"  data-ingredient-id=<%= "#{ingredient_category.id}"%> data-drag-update-url="<%= ingredient_category_path(ingredient_category) %>" >
         <%= image_tag ingredient_category.ingredient.image, class:"category-container mt-2", data: {'drag-target': "img"}%>
