@@ -1,9 +1,22 @@
-<div>
-  <%= ingredient_category.ingredient.name %>
-   <div class="category-container mt-2" style="background-image: url('<%= image_path ingredient_category.ingredient.image %>')"></div>
-  <%= simple_form_for ingredient_category do |f| %>
-  <p> Attribuer une catégorie :</p>
-    <%= f.input :user_category_id, collection: UserCategory.where(user: current_user), label: false, input_html: {class: ''} %>
-    <%= f.submit "OK", class: "btn btn-primary" %>
-  <% end %>
+<div class="container" data-controller="drag" data-action="dragstart->drag#dragstart dragover->drag#dragover dragenter->drag#dragenter drop->drag#drop dragend->drag#dragend" >
+  <div class="d-flex flex-row justify-content-around">
+    <div class="col-sm ingredient-list">
+    <% ingredient_categories.each do |ingredient_category| %>
+      <div class="category-card" draggable="true"  data-ingredient-id=<%= "#{ingredient_category.id}"%> data-drag-update-url="<%= ingredient_category_path(ingredient_category) %>" >
+        <%= image_tag ingredient_category.ingredient.image, class:"category-container mt-2", data: {'drag-target': "img"}%>
+        <%= ingredient_category.ingredient.name %>
+      </div>
+    <% end %>
+    </div>
+    <div class="col-sm category-list">
+      <% @categories.each do |category| %>
+        <div class="category-card category-parent" data-drag-target="category" data-category-id=<%= category.id %>>
+          <%= image_tag category.image, class:"category-container mt-2"%>
+          <%= category.name %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+

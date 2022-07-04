@@ -1,4 +1,8 @@
-<div class="d-flex row">
+<% if IngredientCategory.without_cat(current_user) != [] %>
+  <%= link_to "Edit ingredient", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+<% end %>
+
+<!-- <div class="d-flex row">
   <% @categories.each do |category|%>
   <div class="m-auto my-4 col-4 text-center">
     <%= category.name %>
@@ -6,7 +10,15 @@
   </div>
   <% end %>
 </div>
+-->
 
-<% if IngredientCategory.without_cat(current_user) != [] %>
-  <%= link_to "Edit ingredient", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
-<% end %>
+<div class="container">
+  <div class="d-flex flex-row justify-content-around">
+    <div class="col-sm">
+      One of two columns
+    </div>
+    <div class="col-sm">
+      One of two columns
+    </div>
+  </div>
+</div>

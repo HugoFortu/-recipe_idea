@@ -1,8 +1,30 @@
 .category-container {
   background-size: cover;
   background-position: center;
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   text-align: center;
   align-items: center;
+}
+.ingredient-list {
+  overflow-y: scroll;
+  max-height: 60vh;
+  max-width: 90vh;
+}
+.category-list {
+  text-align: center;
+  overflow-y: scroll;
+  max-height: 60vh;
+  max-width: 90vh;
+}
+.category-card {
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  align-items: center;
+}
+
+.drag-over{
+  border: 0.4rem solid;
+  border-color: blue;
 }

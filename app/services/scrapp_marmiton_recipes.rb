@@ -19,7 +19,8 @@ class ScrappMarmitonRecipes
     results = []
     doc.search(".gACiYG").first(10).each do |element|
       name = element.search("h4").text.strip
-      image = element.search(".hiKnrc img").attribute("src").value.strip
+      # attribute("data-src") or attribute("src")
+      image = element.search(".hiKnrc img").attribute("data-src").value.strip
       rating = element.search(".jHwZwD").text.strip
       url = @base_url + (element.attribute("href").value.strip)
       results << Recipe.create(name: name, image_url: image, stars: rating, url: url)
@@ -80,7 +81,8 @@ class ScrappMarmitonRecipes
       name = element.search(".itCXhd").text.strip.capitalize
       name = element.search(".cDbUWZ").text.strip.capitalize if name == ""
       dose = element.search(".epviYI").text.strip
-      image = element.search("img").attribute("src").value.strip
+      # attribute("data-src") or attribute("src")
+      image = element.search("img").attribute("data-src").value.strip
       ingredient = find_ingredient(name, doc, image)
       if (ingredient.name.downcase != "oeuf" && ingredient.name.downcase != "oeufs")
         (count_elements(MEAT_AND_FISH, ingredient.name.downcase) != 0 || count_elements(MEATS_AND_FISHES, ingredient.name.downcase) != 0) ? tags << "meat" :  tags << "végé"
