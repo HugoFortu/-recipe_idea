@@ -35,29 +35,22 @@ export default class extends Controller {
 
   async drop(event) {
     var ingredientData = event.dataTransfer.getData("application/drag-key")
-    // console.log(ingredientData)
     var categoryData = event.target.dataset.categoryId
     const draggedItem = this.element.querySelector(`[data-ingredient-id='${ingredientData}']`);
-    // const dropTarget = event.target
-    // console.log(categoryData)
-    // console.log(draggedItem.dataset.dragUpdateUrl)
+    const dropTarget = event.target
     if (this.categoryTargets.includes(event.target)) {
       const response = await patch(draggedItem.dataset.dragUpdateUrl, { body: { user_category_id: categoryData } })
       if (response.ok) {
         draggedItem.classList.add("d-none")
+        dropTarget.classList.add("drag-over-drop")
         this.categoryTargets.forEach(category => {
           category.classList.remove("drag-over")
         })
+        setTimeout(function () {
+          dropTarget.classList.remove("drag-over-drop");
+        }, 1200);
       }
     }
-    // console.log(draggedItem)
-    // const positionComparison = dropTarget.compareDocumentPosition(draggedItem)
-    // if (positionComparison & 4) {
-    //   event.target.insertAdjacentElement('beforebegin', draggedItem);
-    // } else if (positionComparison & 2) {
-    //   event.target.insertAdjacentElement('afterend', draggedItem);
-    // }
-
     event.preventDefault()
   }
 

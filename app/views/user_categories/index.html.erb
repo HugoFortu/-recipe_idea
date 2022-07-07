@@ -1,5 +1,5 @@
 <% if IngredientCategory.without_cat(current_user) != [] %>
-  <%= link_to "Edit ingredient", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+  <%= link_to "Attribuer une catégorie aux ingredients", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
 <% end %>
 
 <!-- <div class="d-flex row">

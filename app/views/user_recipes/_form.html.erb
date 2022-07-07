@@ -1,0 +1,9 @@
+<p><%="#{user_recipe.recipe.name} est prévu pour #{user_recipe.recipe.portion} personnes" %></p>
+<p>Voulez-vous modifier les proportions ?</p>
+
+ <%= form_with url: "/lists/#{current_user.list.id}", method: :get, class: "" do |form| %>
+    <%= hidden_field_tag :user_recipe_id, user_recipe.id %>
+    <%= form.label :portion, "Nombre de personnes:" %>
+    <%= form.number_field :portion, value: "#{user_recipe.recipe.portion}"%>
+    <%= form.submit "Modifier", class: "btn btn-primary" %>
+  <% end %>

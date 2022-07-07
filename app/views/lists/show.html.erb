@@ -5,7 +5,7 @@
   <div class="mx-2 p-3 slider">
     <% elements_sorted = @list_ingredients.sort_by  { |element| element.checked ? 1 : 0 }%>
     <% elements_sorted.each do |element| %>
-      <% if element.quantity != "0.0" %>
+      <% if ( element.quantity != "0.0" && element.quantity != "0") %>
         <div id= "checklist"  data-controller="list" data-list-update-url="<%= list_list_ingredient_path(@list, element) %>">
           <input id="<%= element.id %>" type="checkbox" class="check" data-action="list#updateElement"
           data-list-target="checked"

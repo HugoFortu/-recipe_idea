@@ -25,6 +25,31 @@
 }
 
 .drag-over{
-  border: 0.4rem solid;
-  border-color: blue;
+background-color: #c0c0c0;
+}
+
+.drag-over-drop {
+  animation: blinkingBackground 0.6s;
+}
+
+@keyframes blinkingBackground {
+  0% {
+    background-color: #FFFFFF;
+  }
+
+  25% {
+    background-color: #c0c0c0;
+  }
+
+  50% {
+    background-color: #FFFFFF;
+  }
+
+  75% {
+    background-color: #c0c0c0;
+  }
+
+  100% {
+    background-color: #FFFFFF;
+  }
 }
