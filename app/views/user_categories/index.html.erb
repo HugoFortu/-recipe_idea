@@ -1,6 +1,3 @@
-<% if IngredientCategory.without_cat(current_user) != [] %>
-  <%= link_to "Attribuer une catégorie aux ingredients", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
-<% end %>
 
 <!-- <div class="d-flex row">
   <% @categories.each do |category|%>
@@ -12,14 +9,32 @@
 </div>
 -->
 
-<div class="container">
-<%= link_to "nouvelle categorie", new_user_user_category_path(current_user) %>
+<div class="">
   <div class="d-flex flex-row justify-content-around">
+    <div class="col-sm">
+      <% @categories.each do |category| %>
+      <div class="d-flex flex-column justify-content-center", width= "80px;">
+        <%= image_tag category.image, width: "70px;", class:" p-1" %>
+        <%= category.name %>
+      </div>
+      <% end %>
+    </div>
     <div class="col-sm">
       One of two columns
     </div>
     <div class="col-sm">
-      One of two columns
+      <%= link_to "nouvelle categorie", new_user_user_category_path(current_user), class: "btn btn-primary" %>
+      <% if IngredientCategory.without_cat(current_user) != [] %>
+        <%= link_to "Attribuer une catégorie aux ingredients", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary my-3", data: { turbo_frame: "remote_modal" }%>
+      <% end %>
+      <div class="card p-2" style="width: 18rem;">
+        <h5>Ajouter un magasin?</h5>
+        <%= simple_form_for [@shop], html: {class: "m-2"} do |f| %>
+          <%= f.input :name %>
+          <%= f.input :address %>
+          <%= f.submit %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
