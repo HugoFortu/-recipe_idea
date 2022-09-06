@@ -3,4 +3,6 @@ class Shop < ApplicationRecord
   belongs_to :user
 
   validates :name, presence: true
+
+  scope :mine, -> (user) { where(user: user) }
 end
