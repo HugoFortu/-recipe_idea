@@ -2,10 +2,11 @@
   <%= simple_form_for [current_user, @user_category] do |f| %>
     <%= f.input :name %>
     <%= f.association :shop %>
-    <%= f.input :image, input_html: {data_category_form_target:"input" } %>
+    <%= f.label :image %>
+    <%= f.input_field :image, data: {"category-form-target":"input"}, class:"d-none" %>
     <div class="d-flex">
       <% @images.each do |image|%>
-        <div  data-category-form-target="image" id=<%=image%> >
+        <div  data-action="click->category-form#check" data-category-form-target="image" id=<%="categories/#{image}"%> >
           <%= image_tag "categories/#{image}", width: "50px;"%>
         </div>
       <% end %>
