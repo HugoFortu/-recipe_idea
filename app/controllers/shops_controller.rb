@@ -9,6 +9,10 @@ class ShopsController < ApplicationController
     end
   end
 
+  def new
+    @shop = Shop.new
+  end
+
   private
 
   def shop_params

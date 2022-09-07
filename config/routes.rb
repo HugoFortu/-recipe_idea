@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   resources :lists,  only: [:show, :destroy] do
     resources :list_ingredients, only: :update
   end
-  resources :shops, only: [:create]
+  resources :shops, only: [:new, :create]
 end

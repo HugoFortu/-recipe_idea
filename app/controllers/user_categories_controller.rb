@@ -2,7 +2,7 @@ class UserCategoriesController < ApplicationController
   def index
     @shop = Shop.new
     @shops = Shop.mine(current_user)
-    @ingredients = IngredientCategory.mine(current_user)
+    @ingredients = IngredientCategory.mine(current_user).includes([:ingredient, :user_category])
     @categories = UserCategory.mine(current_user)
   end
 
@@ -11,7 +11,6 @@ class UserCategoriesController < ApplicationController
     path = Dir.pwd
     @images = Dir.chdir("#{path}/app/assets/images/categories") { Dir.glob("*.png") }
     @shops = Shop.mine(current_user)
-    @shop = Shop.new
   end
 
   def create
