@@ -6,9 +6,9 @@
   <%= link_to "Ajouter un magasin", new_shop_path, class: "btn btn-primary my-3", data: { turbo_frame: "remote_modal" }%>
 
 
-<div class="bg-active box slider" data-controller="category-list">
+<div class="bg-active box" data-controller="category-list">
   <div class="d-flex flex-row justify-content-around">
-    <div class="col-sm">
+    <div class="col-sm slider">
       <% @categories.each do |category| %>
       <div id=<%="#{category.id}"%> class="bg-inactive d-flex flex-column justify-content-center", width= "80px;"  data-action="click->category-list#click" data-category-list-target="category">
         <%= image_tag category.image, width: "70px;", class:" p-1" %>
