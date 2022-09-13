@@ -1,11 +1,9 @@
 
-  <%= link_to "nouvelle categorie", new_user_user_category_path(current_user), class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
-  <% if IngredientCategory.without_cat(current_user) != [] %>
-    <%= link_to "Attribuer une catégorie aux ingredients", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary my-3", data: { turbo_frame: "remote_modal" }%>
-  <% end %>
-  <%= link_to "Ajouter un magasin", new_shop_path, class: "btn btn-primary my-3", data: { turbo_frame: "remote_modal" }%>
-
-
+<%= link_to "nouvelle categorie", new_user_user_category_path(current_user), class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
+<% if IngredientCategory.without_cat(current_user) != [] %>
+  <%= link_to "Attribuer une catégorie aux ingredients", edit_ingredient_category_path(IngredientCategory.without_cat(current_user).first), class: "btn btn-primary my-3", data: { turbo_frame: "remote_modal" }%>
+<% end %>
+<%= link_to "Ajouter un magasin", new_shop_path, class: "btn btn-primary my-3", data: { turbo_frame: "remote_modal" }%>
 <div class="bg-active box" data-controller="category-list">
   <div class="d-flex flex-row justify-content-around">
     <div class="col-sm slider">
