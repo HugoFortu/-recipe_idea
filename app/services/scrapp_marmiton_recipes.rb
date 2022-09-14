@@ -20,7 +20,8 @@ class ScrappMarmitonRecipes
     doc.search(".gACiYG").first(10).each do |element|
       name = element.search("h4").text.strip
       # attribute("data-src") or attribute("src")
-      image = element.search(".hiKnrc img").attribute("data-src").value.strip
+      image = element.search(".hiKnrc img").attribute("src").value.strip
+      image = element.search(".hiKnrc img").attribute("data-src").value.strip if image.first(4) == "data"
       rating = element.search(".jHwZwD").text.strip
       url = @base_url + (element.attribute("href").value.strip)
       results << Recipe.create(name: name, image_url: image, stars: rating, url: url)
@@ -48,6 +49,7 @@ class ScrappMarmitonRecipes
     name = doc.search(".itJBWW").text.strip
     stars = doc.search(".jHwZwD").text.strip
     image = doc.search(".vKBPb").first.attribute("src").value.strip
+    image = doc.search(".vKBPb").first.attribute("data-src").value.strip if image.first(4) == "data"
     preptime = doc.search(".iDYkZP").first.text.strip
     portion = doc.search(".hYSrSW").text.strip.to_i
     steps = add_steps(doc)

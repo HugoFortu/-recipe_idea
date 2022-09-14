@@ -9,7 +9,9 @@
     <div class="col-sm slider">
       <% @categories.each do |category| %>
       <div id=<%="#{category.id}"%> class="bg-inactive d-flex flex-column justify-content-center", width= "80px;"  data-action="click->category-list#click" data-category-list-target="category">
-        <%= image_tag category.image, width: "70px;", class:" p-1" %>
+        <div class="justify-content-between">
+          <%= image_tag category.image, width: "70px;", class:" p-1" %>
+        </div>
         <%= category.name %>
       </div>
       <% end %>
