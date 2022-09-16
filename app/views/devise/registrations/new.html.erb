@@ -9,7 +9,7 @@
           <%= f.input :password, required: true, placeholder: "••••••" %>
           <%= f.input :password_confirmation, required: true, placeholder: "••••••" %>
         </div>
-        <div class="form-actions" >
+        <div class="form-actions mb-3" >
           <%= f.button :submit, "S'enregistrer", class: "btn btn-primary", data: {"action":"sign-in-tempo#submit"} %>
         </div>
         <%= render "devise/shared/links" %>
