@@ -25,7 +25,7 @@
         <% end %>
       <% end %>
     </div>
-  <% @recipes.shuffle.each do |recipe| %>
+  <% @recipes.each do |recipe| %>
     <%= link_to recipe_path(recipe), class:"link-text" do %>
       <%= render 'shared/recipe_list', recipe: recipe  %>
     <% end %>
