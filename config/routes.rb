@@ -3,6 +3,7 @@ Rails.application.routes.draw do
         registrations: "users/registrations"
       }
   root to: "recipes#index"
+  get "home", to: "pages#homepage"
   resources :recipes, except: [:new, :edit, :update, :destroy]
   resources :user_recipes, only: [:show, :index, :destroy, :create] do
     member do

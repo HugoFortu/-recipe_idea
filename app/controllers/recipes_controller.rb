@@ -1,17 +1,22 @@
 class RecipesController < ApplicationController
+  skip_before_action :authenticate_user!, only: :index
   before_action :find_recipe, only: [:show, :edit, :update]
 
   def index
-    @recipes = Recipe.recorded
-    @tags =  Tag.joins(:recipe_tags).distinct
+    if user_signed_in?
+      @recipes = Recipe.recorded
+      @tags =  Tag.joins(:recipe_tags).distinct
 
-    if params[:ingredient]
-      Recipe.not_recorded.includes([:recipe_tags, :ingredient_recipes, :steps, :mealplan, :user_recipes]).destroy_all
-      @new_recipes = ScrappMarmitonRecipes.new(ingredient: params[:ingredient], user: current_user).search
-    end
+      if params[:ingredient]
+        Recipe.not_recorded.includes([:recipe_tags, :ingredient_recipes, :steps, :mealplan, :user_recipes]).destroy_all
+        @new_recipes = ScrappMarmitonRecipes.new(ingredient: params[:ingredient], user: current_user).search
+      end
 
-    if params[:tag] && params[:tag][:ids].present?
-      @recipes = @recipes.joins(:tags).where(tags: { id: params[:tag][:ids] }).distinct
+      if params[:tag] && params[:tag][:ids].present?
+        @recipes = @recipes.joins(:tags).where(tags: { id: params[:tag][:ids] }).distinct
+      end
+    else
+      redirect_to home_path
     end
   end
 
