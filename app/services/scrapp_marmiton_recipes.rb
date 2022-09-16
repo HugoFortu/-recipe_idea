@@ -24,7 +24,7 @@ class ScrappMarmitonRecipes
       image = element.search(".hiKnrc img").attribute("data-src").value.strip if image.first(4) == "data"
       rating = element.search(".jHwZwD").text.strip
       url = @base_url + (element.attribute("href").value.strip)
-      results << Recipe.create(name: name, image_url: image, stars: rating, url: url)
+      results << Recipe.create(name: name, image_url: image, stars: rating, url: url) if Recipe.find_by(name: name) == nil
     end
     results
   end

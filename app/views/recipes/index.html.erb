@@ -8,8 +8,12 @@
   <% end %>
   <% unless @new_recipes.nil? %>
     <div class="">
-      <% @new_recipes.each do |recipe| %>
-        <%= render 'shared/recipe_list_search', recipe: recipe  %>
+      <% if @new_recipes != [] %>
+        <% @new_recipes.each do |recipe| %>
+          <%= render 'shared/recipe_list_search', recipe: recipe  %>
+        <% end %>
+      <% else %>
+        <p>Aucun résultat pour votre recherche...</p>
       <% end %>
     </div>
   <% end %>
@@ -25,12 +29,12 @@
         <% end %>
       <% end %>
     </div>
-  <% @recipes.each do |recipe| %>
+  <% @recipes.shuffle.each do |recipe| %>
     <%= link_to recipe_path(recipe), class:"link-text" do %>
       <%= render 'shared/recipe_list', recipe: recipe  %>
     <% end %>
   <% end %>
-  <div class="d-flex justify-content-center ">
+  <div class="d-flex justify-content-center my-6 text-center ">
     <%== pagy_bootstrap_nav(@pagy) %>
   </div>
   </div>
