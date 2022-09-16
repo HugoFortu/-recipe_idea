@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
 
   def index
     if user_signed_in?
-      @recipes = Recipe.recorded
+      @pagy, @recipes = pagy(Recipe.recorded)
       @tags =  Tag.joins(:recipe_tags).distinct
 
       if params[:ingredient]
