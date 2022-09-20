@@ -12,14 +12,14 @@
 
   <body>
 
-      <%= render 'shared/navbar' %>
+    <%= render 'shared/navbar' %>
 
     <%= render 'shared/flashes' %>
     <div class="container mobile-adapt">
       <%= yield %>
       <%= turbo_frame_tag "remote_modal", target: "_top" %>
     </div>
-    <% unless current_page?(new_user_registration_path) || current_page?(new_user_session_path) || current_page?(home_path) %>
+    <% unless current_page?(new_user_registration_path) || current_page?(new_user_session_path) %>
       <%= render 'shared/navbar-mobile' %>
     <% end %>
   </body>

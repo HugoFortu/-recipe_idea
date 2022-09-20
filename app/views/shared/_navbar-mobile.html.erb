@@ -19,6 +19,10 @@
       <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-deco navbar-brand sleep-nav", data: {"turbo-method": :delete, turbo_confirm:  'Etes vous sûr de vouloir vous déconnecter?'} do %>
         <div class="d-flex flex-column mt-1 "><%= image_tag "user.png", class:"img-navbar " %><p class="text-navbar text-center">Déconnexion</p></div>
       <% end %>
+    <% else %>
+      <%= link_to new_user_session_path, class: "btn btn-deco navbar-brand sleep-nav" do %>
+        <div class="d-flex flex-column mt-1 "><%= image_tag "user.png", class:"img-navbar " %><p class="text-navbar text-center">Connexion</p></div>
+      <% end %>
     <% end %>
   </nav>
 </div>
